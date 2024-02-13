@@ -54,9 +54,6 @@ class RegisterAdapter(DefaultSocialAccountAdapter):
                 # Save the user
                 user.save()
 
-                # Call create user function
-                #Create_User_Signal(user=user)
-
                 # Call the super method to execute the default save_user logic
                 super().save_user(request, sociallogin, form)
 

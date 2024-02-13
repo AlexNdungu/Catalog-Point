@@ -7,7 +7,6 @@ from django.core.files.storage import default_storage
 from . import models
 
 
-
 # Sign up page
 def signUp(request):
 
@@ -17,7 +16,6 @@ def signUp(request):
     else:
         return render(request,'Main/signup.html', {'error':''})
 
-   
 # Create new user
 def createNewUser(request):
 
@@ -57,7 +55,6 @@ def signIn(request):
         return redirect('dash')
     else:
         return render(request,'Main/signin.html',{'error':''})
-
 
 # Sign out user
 def signOut(request):  
@@ -116,7 +113,6 @@ def Profile(request):
     }
 
     return render(request, 'Main/profile.html', data_dict)
-
 
 # Update Profile
 def UpdateProfile(request):
