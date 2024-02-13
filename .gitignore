@@ -1,5 +1,5 @@
-CatalogPoint/library/migrations/0*
-CatalogPoint/Media/
-CatalogPoint/library/__pycache__/*
-CatalogPoint/library/migrations/__pycache__/*
+library/migrations/0*
+Media/
+library/__pycache__/*
+library/migrations/__pycache__/*
 CatalogPoint/__pycache__/*
