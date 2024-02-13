@@ -1,0 +1,1219 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* The sign in body */
+.sign_body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #D3DBFF;
+}
+
+/* The playground */
+.sign_playGround {
+    width: 50%;
+    height: 100%;
+}
+
+
+
+/* The login form section */
+.signin_section {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The inner sign in section */
+.inner_signin_section {
+    width: 90%;
+    height: 95%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+
+/* Actual inner form */
+.inner_actual_form {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* padding-top: 150px; */
+}
+
+.inner_actual_form h3 {
+    color: #414141;
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.enter_det_span {
+    color: #ACACAC;
+    font-size: 16px;
+}
+
+
+
+/* The logo section */
+.logo_auth {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    /* margin-bottom: 30px; */
+}
+
+.logo_auth img {
+    height: 50px;
+}
+
+/* Continue with google */
+
+.with_google {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 40px;
+    width: 100%;
+    background-color: #f2f2f2;
+    background-image: none;
+    border-radius: 4px;
+    color: #1f1f1f;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.25px;
+    outline: none;
+    padding: 0 12px;
+    position: relative;
+    text-align: center;
+    margin-top: 13px;
+}
+
+.with_google img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.with_google span {
+    width: calc(100% - 42px);
+    text-align: center;
+}
+
+
+/* The or section */
+
+.or_email {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #414141;
+    font-size: 20px;
+}
+
+.or_email div {
+    width: 40%;
+    height: 1.5px;
+    background-color: #414141;
+}
+
+
+/* The signin pop up message section */
+.signIn_Message_pop {
+    width: 100%;
+    height: 50px;
+    padding-left: 10px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: #FBEFEB;
+    border: 1px solid #FC5758;
+    border-radius: 10px;
+    fill: #FC5758;
+}
+
+.sign_pop_outer {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: #FC5758;
+}
+
+.sign_pop_inner {
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.sign_pop_inner svg {
+    width: 17px;
+}
+
+.sign_pop_message {
+    height: 100%;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FC5758;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.pop_close {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease-in;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.pop_close:hover {
+    background-color: #fff;
+}
+
+.pop_close svg {
+    width: 25px;
+    fill: #FC5758;
+}
+
+
+/* The forms section */
+
+form {
+    width: 100%;
+    height: max-content;
+}
+
+/* The inputs */
+
+.email_input {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    background-color: #EFEFEF;
+    border: 2px solid #EFEFEF;
+    fill: #ACACAC;
+    transition: 0.2s ease-in;
+}
+
+.email_input svg {
+    width: 24px;
+}
+
+/* Hover and focus effect */
+.email_input:hover {
+    border: 2px solid #406CEE;
+    fill: #406CEE;
+}
+
+.email_input:focus-within {
+    border: 2px solid #406CEE;
+    fill: #406CEE;
+    background-color: white;
+}
+
+
+.email_input input {
+    width: 300px;
+    height: 100%;
+    outline: none;
+    border: none;
+    background: inherit;
+    font-size: 16px;
+    margin-left: 10px;
+    color: #406CEE;
+}
+
+.email_input input::placeholder {
+    color: #ACACAC;
+    transition: 0.2s ease-in;
+}
+
+.email_input input:focus::placeholder {
+    color: #406CEE;
+}
+
+.email_input:hover > input::placeholder {
+    color: #406CEE;
+}
+
+
+/* The password input */
+.password_input {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 5px;
+    background-color: #EFEFEF;
+    border: 2px solid #EFEFEF;
+    color:#ACACAC;
+    fill: #ACACAC;
+    transition: 0.2s ease-in;
+}
+
+/* Hover and focus effect */
+.password_input:hover {
+    border: 2px solid #406CEE;
+    fill: #406CEE;
+}
+
+.password_input:focus-within {
+    border: 2px solid #406CEE;
+    fill: #406CEE;
+    background-color: white;
+}
+
+.password_input input:focus::placeholder {
+    color: #406CEE;
+}
+
+
+
+.pass_input_lock {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pass_input_lock input{
+    width: 300px;
+    height: 100%;
+    outline: none;
+    border: none;
+    background: inherit;
+    font-size: 16px;
+    margin-left: 10px;
+    transition: 0.2s ease-in;
+    color: #406CEE;
+}
+
+.pass_input_lock input::placeholder {
+    color: #ACACAC;
+}
+
+.pass_input_lock:hover > input::placeholder {
+    color: #406CEE;
+}
+
+.password_input svg {
+    width: 24px;
+}
+
+/* View password */
+.view_pass {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ACACAC;
+    fill: #F3F3F3;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+/* Active class js */
+.view_pass_active {
+    background-color: #406CEE;
+}
+
+/* The eye icons */
+#eye_pass1_open,#eye_pass1_open1 {
+    display: flex;
+}
+
+#eye_pass1_close,#eye_pass1_close1,#eye_pass_close {
+    display: none;
+}
+
+/* Hover */
+.view_pass:hover{
+    background-color: #406CEE;
+    fill: #F3F3F3;
+}
+
+.password_input .view_pass svg {
+    width: 20px;
+}
+
+
+
+/* This classes will be added if input in password or email is valid or invalid */
+.invalid_input {
+    border: 2px solid #C53B3B;
+    fill: #C53B3B;
+    color: #C53B3B;
+    background-color: white;
+}
+
+.valid_input {
+    border: 2px solid #2CA631;
+    fill: #2CA631;
+    color: #2CA631;
+    background-color: white;
+}
+
+.invalid_input input:hover{
+    color: #406CEE;
+}
+
+.invalid_input input{
+    color: #C53B3B;
+}
+
+.valid_input input{
+    color: #2CA631;
+}
+
+.valid_input input:hover{
+    color: #406CEE;
+}
+
+.invalid_input:hover > input {
+    color: #406CEE;
+}
+
+.valid_input:hover > input {
+    color: #406CEE;
+}
+
+
+
+/* More details about inputs */
+.input_detail {
+    width: 100%;
+    height: 20px; /* 40px when showing more details */
+    display: flex; /* Show more details */
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 14px;
+    color: #C53B3B;
+}
+
+.input_detail span {
+    display: none;
+}
+
+.input_detail div {
+    display: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 5px;
+    margin-right: 10px;
+    background-color: #C53B3B;
+}
+
+
+/* Forgot password */
+.forgot_pass {
+    width: 100%;
+    height: 35px; /* 40px when showing more details */
+    display: flex; /* Show more details */
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.forgot_pass span a {
+    font-size: 15px;
+    color: #406CEE;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+
+/* Create user button */
+
+.create_user {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ACACAC;
+    color: #F3F3F3;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+/* Hover effect */
+.create_user:hover {
+    background-color: #406CEE;
+}
+
+/* The sign spinner */
+
+.sign_spinner {
+    display: none;
+    width: 35px;
+    height: 35px;
+    border: 4px solid #dddddd;
+    border-top-color: #406CEE;
+    border-radius: 50%;
+    animation: loading 1s ease infinite;
+}
+
+@keyframes loading {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+
+/* Have an account or not */
+.have_dont_account {
+    width: 100%;
+    height: 70px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #414141;
+    font-size: 16px;
+}
+
+.have_dont_account span a {
+    color: #406CEE;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+
+/* RESPONSIVE WEBSITE USING BOTH WIDTH */
+
+/* WITH WIDTH */
+
+/* Width max=1370  */
+@media screen and (max-width: 1390px) {
+
+    /* TOP INTO WORDS */
+    .inner_actual_form h3 {
+        font-size: 21px;
+    }
+
+    .enter_det_span {
+        font-size: 15px;
+    }
+
+    /* OR */
+    .or_email {
+        height: 40px;
+        font-size: 18px;
+    }
+
+    /* EMAIL */
+    
+    /* The email container */
+    .email_input {
+        height: 40px;
+        border-radius: 6px;
+    }
+
+    .email_input svg {
+        width: 18px;
+    }
+
+    /* The email input */
+    .email_input input{
+        width: 260px;
+        font-size: 16px;
+    }
+
+    /* PASSWORD */
+
+    /* Padlock svg */
+    .password_input svg {
+        width: 18px;
+    }
+
+    /* The password container */
+    .password_input {
+        height: 40px;
+        border-radius: 6px;
+    }
+
+    /* Password input concidering the show password button */
+    .pass_input_lock input{
+        width: 260px;
+        font-size: 16px;
+    }
+
+    /* View password */
+    .view_pass {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+    }
+
+    .password_input .view_pass svg {
+        width: 16px;
+    }
+
+
+    /* CREATE USER */
+    /* Create user button */
+    .create_user {
+        height: 40px;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: 700;
+       
+    }
+
+    /* Spinner */
+    .sign_spinner {
+        width: 30px;
+        height: 30px;
+        border-top-color: #406CEE;
+        animation: loading 1s ease infinite;
+    }
+    
+    @keyframes loading {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+    /* DONT HAVE ACCOUNT */
+    .have_dont_account {
+        height: 60px;
+        font-size: 15px;
+    }
+
+        
+}
+
+/* width max=1030 */
+@media screen and (max-width: 1200px) {
+
+    /* MAIN CONTAINER */
+
+    .inner_actual_form {
+        width: 65%;
+    }
+
+    /* EMAIL */
+
+    /* The email input */
+    .email_input input{
+        width: 220px;
+    }
+   
+    /* PASSWORD */
+
+    /* Password input concidering the show password button */
+    .pass_input_lock input{
+        width: 200px;
+    }
+
+}
+
+/* Width max=950 */
+@media screen and (max-width: 950px) {
+
+    /* THE LOGO CONTAINER */
+    .sign_playGround {
+        display: none;
+    }
+
+    /* THE MINI LOGO */
+    .logo_auth {
+        display: flex;
+    }
+
+    /* THE FORM CONTAINER */
+
+    /* The login form section */
+    .signin_section {
+        width: 100%;
+    }
+
+    /* TOP INTO WORDS */
+    .inner_actual_form h3 {
+        font-size: 23px;
+    }
+
+    .enter_det_span {
+        font-size: 16px;
+    }
+
+    /* OR */
+    .or_email {
+        height: 50px;
+        font-size: 20px;
+    }
+
+    /* EMAIL */
+    
+    /* The email container */
+    .email_input {
+        height: 50px;
+        border-radius: 10px;    
+    }
+
+    .email_input svg {
+        width: 24px;
+    }
+
+    /* The email input */
+    .email_input input{
+        width: 300px;
+    }
+
+    /* PASSWORD */
+
+    /* Padlock svg */
+    .password_input svg {
+        width: 24px;
+    }
+
+    /* The password container */
+    .password_input {
+        height: 50px;
+        border-radius: 10px;
+    }
+
+    /* Password input concidering the show password button */
+    .pass_input_lock input{
+        width: 300px;
+        font-size: 16px;
+    }
+
+    /* View password */
+    .view_pass {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+    }
+
+    .password_input .view_pass svg {
+        width: 20px;
+    }
+
+
+    /* CREATE USER */
+    /* Create user button */
+    .create_user {
+        height: 50px;
+        border-radius: 10px;
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+    /* DONT HAVE ACCOUNT */
+    .have_dont_account {
+        height: 70px;
+        font-size: 16px;
+    }
+
+}
+
+/* Width max=610 */
+@media screen and (max-width: 610px) {
+    
+    /* THE EMAIL SECTION */
+    .email_input input {
+        width: 270px;
+    }
+
+    /* THE PASSWORD SECTION */
+    .pass_input_lock input {
+        width: 250px;
+    }
+
+}
+
+/* Width max=550 */
+@media screen and (max-width: 550px) {
+
+    /* THE MINI LOGO */
+
+    .logo_auth img {
+        height: 45px;
+    }
+    /* MAIN CONTAINER */
+
+    .inner_actual_form {
+        width: 70%;
+    }
+
+    /* TOP INTO WORDS */
+    .inner_actual_form h3 {
+        font-size: 20px;
+    }
+
+    .enter_det_span {
+        font-size: 14px;
+    }
+
+    /* OR */
+    .or_email {
+        height: 40px;
+        font-size: 16px;
+    }
+
+    /* EMAIL */
+    
+    /* The email container */
+    .email_input {
+        height: 40px;
+        border-radius: 6px;
+    }
+
+    .email_input svg {
+        width: 18px;
+    }
+
+    /* The email input */
+    .email_input input{
+        width: 260px;
+        font-size: 14px;
+    }
+
+    /* PASSWORD */
+
+    /* Padlock svg */
+    .password_input svg {
+        width: 18px;
+    }
+
+    /* The password container */
+    .password_input {
+        height: 40px;
+        border-radius: 6px;
+    }
+
+    /* Password input concidering the show password button */
+    .pass_input_lock input{
+        width: 240px;
+        font-size: 14px;
+    }
+
+    /* View password */
+    .view_pass {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+    }
+
+    .password_input .view_pass svg {
+        width: 16px;
+    }
+
+    /* CREATE USER */
+    /* Create user button */
+    .create_user {
+        height: 40px;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: 700;
+       
+    }
+
+    /* DONT HAVE ACCOUNT */
+    .have_dont_account {
+        height: 60px;
+        font-size: 15px;
+    }
+
+}
+
+/* Width max=500 */
+@media screen and (max-width: 500px) {
+    
+    /* THE EMAIL SECTION */
+    .email_input input {
+        width: 240px;
+    }
+
+    /* THE PASSWORD SECTION */
+    .pass_input_lock input {
+        width: 210px;
+    }
+
+    /* Log Spinner */
+    .sign_spinner {
+        width: 25px;
+        height: 25px;
+        border: 3px solid #dddddd;
+        border-top-color: #406CEE;
+        animation: loading 1s ease infinite;
+    }
+    
+    @keyframes loading {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+}
+
+/* Width max=420 */
+@media screen and (max-width: 435px) {
+
+     /* The Sign In Error */
+
+     .signIn_Message_pop {
+        height: 35px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+    }
+
+    .sign_pop_message {
+        font-size: 12px;
+    }
+
+    .sign_pop_outer {
+        width: 27px;
+        height: 27px;
+    }
+
+    .sign_pop_inner {
+        width: 20px;
+        height: 20px;
+    }
+
+    .sign_pop_inner svg {
+        width: 14px;
+    }
+
+    .pop_close {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* THE MINI LOGO */
+    .logo_auth img {
+        height: 40px;
+    }
+
+    /* MAIN CONTAINER */
+
+    .inner_actual_form {
+        width: 80%;
+    }
+
+    /* TOP INTO WORDS */
+    .inner_actual_form h3 {
+        font-size: 18px;
+    }
+
+    .enter_det_span {
+        font-size: 13px;
+    }
+
+    /* OR */
+    .or_email {
+        height: 35px;
+        font-size: 15px;
+    }
+
+    /* EMAIL */
+    
+    /* The email container */
+    .email_input {
+        height: 35px;
+        border-radius: 6px;
+    }
+
+    .email_input svg {
+        width: 16px;
+    }
+
+    /* The email input */
+    .email_input input{
+        width: 220px;
+        font-size: 13px;
+    }
+
+    /* PASSWORD */
+
+    /* Padlock svg */
+    .password_input svg {
+        width: 16px;
+    }
+
+    /* The password container */
+    .password_input {
+        height: 35px;
+        border-radius: 6px;
+    }
+
+    /* Password input concidering the show password button */
+    .pass_input_lock input{
+        width: 200px;
+        font-size: 13px;
+    }
+
+    /* View password */
+    .view_pass {
+        width: 25px;
+        height: 25px;
+        border-radius: 6px;
+    }
+
+    .password_input .view_pass svg {
+        width: 14px;
+    }
+
+    /* CREATE USER */
+    /* Create user button */
+    .create_user {
+        height: 35px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 700;
+       
+    }
+
+    /* DONT HAVE ACCOUNT */
+    .have_dont_account {
+        height: 50px;
+        font-size: 13px;
+    }
+
+}
+
+/* Width max=370 */
+@media screen and (max-width: 380px) {
+
+    /* MAIN CONTAINER */
+
+    .inner_actual_form {
+        width: 80%;
+    }
+
+    /* TOP INTO WORDS */
+    .inner_actual_form h3 {
+        font-size: 16px;
+    }
+
+    .enter_det_span {
+        font-size: 12px;
+    }
+
+    /* OR */
+    .or_email {
+        height: 30px;
+        font-size: 14px;
+    }
+
+    /* EMAIL */
+    
+    /* The email container */
+    .email_input {
+        height: 30px;
+        border-radius: 6px;
+    }
+
+    .email_input svg {
+        width: 14px;
+    }
+
+    /* The email input */
+    .email_input input{
+        width: 200px;
+        font-size: 12px;
+    }
+
+    /* PASSWORD */
+
+    /* Padlock svg */
+    .password_input svg {
+        width: 14px;
+    }
+
+    /* The password container */
+    .password_input {
+        height: 30px;
+        border-radius: 6px;
+    }
+
+    /* Password input concidering the show password button */
+    .pass_input_lock input{
+        width: 180px;
+        font-size: 12px;
+    }
+
+    /* View password */
+    .view_pass {
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+    }
+
+    .password_input .view_pass svg {
+        width: 12px;
+    }
+
+    /* CREATE USER */
+    /* Create user button */
+    .create_user {
+        height: 30px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 700;
+       
+    }
+
+    /* DONT HAVE ACCOUNT */
+    .have_dont_account {
+        height: 40px;
+        font-size: 12px;
+    }
+
+}
+
+/* Width max=330 */
+@media screen and (max-width: 330px) {
+
+
+    /* THE LOGO SMALL */
+    .logo_auth {
+        height: 60px;
+    }
+
+    .logo_auth img {
+        height: 35px;
+    }
+
+    /* EMAIL SECTION */
+    .email_input input {
+        width: 180px;
+    }
+
+    /* PASSWORD SECTION */
+    .pass_input_lock input {
+        width: 160px;
+    }
+
+}
+
+/* Width max=300 */
+@media screen and (max-width: 300px) {
+
+    /* THE MINI LOGO */
+
+    .logo_auth {
+        height: 75px;
+    }
+
+    .logo_auth img {
+        height: 30px;
+    }
+
+    /* MAIN CONTAINER */
+
+    .inner_actual_form {
+        width: 83%;
+    }
+
+    /* TOP INTO WORDS */
+    .inner_actual_form h3 {
+        font-size: 14px;
+    }
+
+    .enter_det_span {
+        font-size: 11px;
+    }
+
+    /* OR */
+    .or_email {
+        height: 25px;
+        font-size: 13px;
+    }
+
+    /* EMAIL */
+        
+    /* The email input */
+    .email_input input{
+        width: 160px;
+        font-size: 11px;
+    }
+
+    /* PASSWORD */
+
+    /* Password input concidering the show password button */
+    .pass_input_lock input{
+        width: 140px;
+        font-size: 11px;
+    }
+
+    /* View password */
+
+    .password_input .view_pass svg {
+        width: 10px;
+    }
+
+    /* CREATE USER */
+    /* Create user button */
+    .create_user {
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    /* Spinner */
+    .sign_spinner {
+        width: 20px;
+        height: 20px;
+        border-top-color: #406CEE;
+        animation: loading 1s ease infinite;
+    }
+    
+    @keyframes loading {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+    /* DONT HAVE ACCOUNT */
+    .have_dont_account {
+        height: 35px;
+        font-size: 11px;
+    }
+
+}
