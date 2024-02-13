@@ -99,16 +99,6 @@ def signInUser(request):
 def UpperNav(request):
     return render(request,'Inherit/upper-nav.html')
 
-# Landing Page
-def Landing(request):
-
-    # Check if user is authenticated
-    if request.user.is_authenticated:
-        return redirect('dash')
-    else:
-        return render(request,'Main/landing.html')
-    
-
 # The profile rendering function
 @login_required
 def Profile(request):
