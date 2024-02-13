@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
+
 
 # Application definition
 
@@ -165,4 +167,4 @@ LOGIN_REDIRECT_URL = "/dash/"
 LOGOUT_REDIRECT_URL = "/"
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
-SOCIALACCOUNT_ADAPTER  = 'Code1.signals.RegisterAdapter'
+SOCIALACCOUNT_ADAPTER  = 'library.signals.RegisterAdapter'
