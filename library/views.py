@@ -36,9 +36,6 @@ def createNewUser(request):
             # Create the user
             user = User.objects.create_user(username=email, email=email, password=password)
 
-            # call the create user signal
-            #Create_User_Signal(user)
-
             # Check if the user is logged in
             if not request.user.is_authenticated:
                 # Login the user

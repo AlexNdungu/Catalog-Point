@@ -66,6 +66,7 @@ class RegisterAdapter(DefaultSocialAccountAdapter):
 def Welcome_User_Signal(sender,instance,created, **kwargs):
 
     if created:
+        print("User Created")
         # Call the create user function
         new_user = Create_User_Signal(user=instance)
 

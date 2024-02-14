@@ -172,3 +172,10 @@ LOGOUT_REDIRECT_URL = "/"
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
 SOCIALACCOUNT_ADAPTER  = 'library.signals.RegisterAdapter'
+
+# Email Settings
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '98862778f9477c'
+EMAIL_HOST_PASSWORD = 'e808cc56841e16'
+EMAIL_PORT = '2525'
+EMAIL_USE_TLS = False
