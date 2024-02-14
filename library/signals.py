@@ -66,16 +66,19 @@ class RegisterAdapter(DefaultSocialAccountAdapter):
 def Welcome_User_Signal(sender,instance,created, **kwargs):
 
     if created:
-        
+
         # Call the create user function
         new_user = Create_User_Signal(user=instance)
 
-        # Instanciate the Mailer class
-        subject = 'Welcome to CatalogPoint'
-        template_path = 'Mail/welcome.html'
-        mailer = Mailer(subject,template_path)
-        # Get the instance username and email
-        username_dict = {'username':new_user.username}
-        email = new_user.email
-        # Call the Send_Mail_To_User method
-        mailer.Send_Mail_To_User(data_dict=username_dict,to_email=email)
+        # check if user has email
+        if new_user.email != '':
+            
+            # Instanciate the Mailer class
+            subject = 'Welcome to CatalogPoint'
+            template_path = 'Mail/welcome.html'
+            mailer = Mailer(subject,template_path)
+            # Get the instance username and email
+            username_dict = {'username':new_user.username}
+            email = new_user.email
+            # Call the Send_Mail_To_User method
+            mailer.Send_Mail_To_User(data_dict=username_dict,to_email=email)
