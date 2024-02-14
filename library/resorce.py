@@ -11,14 +11,19 @@ def Create_User_Signal(user):
     #Save the profile
     profile.save()
 
-    #The username to be saved
     suggest_username = ''
+    stripped_mail = ''
 
-    #Get the instance of user created 
-    new_user_email = user.email
+    # Check if user has email
+    if user.email == '':
 
-    #Strip the email
-    stripped_mail = new_user_email.split('@')[0]
+        stripped_mail = user.username
+    
+    else:
+        #Get the instance of user created 
+        new_user_email = user.email
+        #Strip the email
+        stripped_mail = new_user_email.split('@')[0]
 
     #Check if the an email exists matching stripped mail
     if User.objects.filter(username=stripped_mail).exists():

@@ -27,5 +27,4 @@ urlpatterns = [
     # Update Profile Url
     path('updateProfile/', views.UpdateProfile, name='update_profile'),
 
-
 ]
