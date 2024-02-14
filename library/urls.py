@@ -27,4 +27,7 @@ urlpatterns = [
     # Update Profile Url
     path('updateProfile/', views.UpdateProfile, name='update_profile'),
 
+    # Create new book
+    path('NewBook/', views.NewBook, name='new_book'),
+
 ]

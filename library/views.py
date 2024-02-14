@@ -12,7 +12,7 @@ def signUp(request):
 
     # Check if user is authenticated
     if request.user.is_authenticated:
-        return redirect('dash')
+        return redirect('upper-nav')
     else:
         return render(request,'Main/signup.html', {'error':''})
 
@@ -178,3 +178,7 @@ def UpdateProfile(request):
             new_website = current_profile.website
 
             return JsonResponse({'fullname':new_full_name,'secondary_email':new_secondary_email,'company':new_company,'location':new_location,'website':new_website})
+
+# Create new book
+def NewBook(request):
+    return render(request,'librarian/new_book.html')
