@@ -32,5 +32,6 @@ urlpatterns = [
 
     # Create new category
     path('NewCategory/', views.NewCategory, name='new_category'),
+    path('createNewCategory/', views.CreateNewCategory, name='createNewCategory'),
 
 ]

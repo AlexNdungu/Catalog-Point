@@ -36,6 +36,7 @@ submit_btn.addEventListener('click', () => {
     }
 });
 
+// Functions
 // Discard function
 function discard() {
     categ_title.value = '';
@@ -76,10 +77,6 @@ function upload(){
         contentType: false,
         success: function(response){
 
-            // Show the success pop up
-            message_popup_success.style.display = 'flex';
-            success_message_popup.innerHTML = 'Category has been created successfully';
-
             // Hide spinner
             upload_spinner.style.display = "none";
             upload_plus_icon.style.display = "flex";
@@ -87,25 +84,46 @@ function upload(){
             // Enable the submit_btn
             submit_btn.style.pointerEvents = "auto";
 
-            // Hide the success pop up after 2 seconds
-            setTimeout(function(){
-                message_popup_success.style.display = 'none';
-            }, 4000);
+            // response = exists
+            if(response.status == 'exists'){
 
+                // Show the failed pop up
+                message_popup_failed.style.display = 'flex';
+                failed_message_popup.innerHTML = 'Category already exists';
+
+                // Hide the failed pop up after 2 seconds
+                setTimeout(function(){
+                    message_popup_failed.style.display = 'none';
+                }, 4000);
+            }
+            else if(response.status == 'created') {
+
+                // Show the success pop up
+                message_popup_success.style.display = 'flex';
+                success_message_popup.innerHTML = 'Category has been created successfully';
+
+                // Hide the success pop up after 2 seconds
+                setTimeout(function(){
+                    message_popup_success.style.display = 'none';
+                    categ_title.value = '';
+                    categ_description.value = '';
+                }, 4000);
+
+            }
             
         },
         error: function(error){
 
-            // Show the failed pop up
-            message_popup_failed.style.display = 'flex';
-            failed_message_popup.innerHTML = 'Category creation has failed. Please try again later';
-
             // Hide spinner
             upload_spinner.style.display = "none";
             upload_plus_icon.style.display = "flex";
 
             // Enable the submit_btn
             submit_btn.style.pointerEvents = "auto";
+
+            // Show the failed pop up
+            message_popup_failed.style.display = 'flex';
+            failed_message_popup.innerHTML = 'Category creation has failed. Please try again later';
 
             // Hide the failed pop up after 2 seconds
             setTimeout(function(){

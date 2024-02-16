@@ -186,3 +186,24 @@ def NewBook(request):
 # Create new category
 def NewCategory(request):
     return render(request,'librarian/new_category.html')
+
+# Create new category functionality
+def CreateNewCategory(request):
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        # Get the category name and description
+        category_title = request.POST.get('categ_title').title()
+        category_description = request.POST.get('categ_description')
+
+        # Check if the category exists
+        if models.Category.objects.filter(category_name = category_title).exists():
+            return JsonResponse({'status':'exists'})
+        else:
+            # Create the category
+            new_category = models.Category()
+            new_category.category_name = category_title
+            new_category.category_description = category_description
+            new_category.save()
+
+            return JsonResponse({'status':'created'})
