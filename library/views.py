@@ -182,3 +182,7 @@ def UpdateProfile(request):
 # Create new book
 def NewBook(request):
     return render(request,'librarian/new_book.html')
+
+# Create new category
+def NewCategory(request):
+    return render(request,'librarian/new_category.html')

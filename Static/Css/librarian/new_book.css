@@ -80,7 +80,7 @@
     height: max-content;
 }
 
-.book_input,.book_cover_section,.book_controls {
+.book_input,.book_cover_section,.book_controls,.book_text_area {
     margin-bottom: 20px;
 }
 

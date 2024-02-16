@@ -30,4 +30,7 @@ urlpatterns = [
     # Create new book
     path('NewBook/', views.NewBook, name='new_book'),
 
+    # Create new category
+    path('NewCategory/', views.NewCategory, name='new_category'),
+
 ]
