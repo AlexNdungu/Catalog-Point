@@ -6,7 +6,7 @@
 {% block head %}
 
     <!--Connect The Styling-->
-    <link rel="stylesheet" href="{% static '/Css/librarian/new_book.css' %}">
+    <link rel="stylesheet" href="{% static '/Css/Librarian/new_book.css' %}">
 
     <!--The Page Title-->
     <title>Catalog Point ::- New Book</title>
@@ -43,6 +43,8 @@
 
         <!--The form-->
         <form class="create_book_form">
+
+            {% csrf_token %}
 
             <!--section heading-->
             <h1>Create A New Book</h1>
