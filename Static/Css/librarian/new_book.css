@@ -204,6 +204,10 @@
     color: #414141;
 }
 
+.book_cover_name_2 {
+    width: 280px;
+}
+
 .book_cover_name span {
     margin-left: 15px;
 }
@@ -238,6 +242,7 @@
 .instruct_head span {
     font-size: 17px;
     font-weight: 500;
+    color: #414141;
 }
 
 .instruct_body {
@@ -255,6 +260,8 @@
 
 .instruct_body span {
     margin-bottom: 10px;
+    font-weight: 400;
+    color: #414141;
 }
 
 /* Controls */
