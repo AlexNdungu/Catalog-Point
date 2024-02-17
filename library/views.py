@@ -281,3 +281,7 @@ def CreateNewCategory(request):
 # All Books
 def AllBooks(request):
     return render(request,'Main/all_books.html')
+
+# All Users
+def AllUsers(request):
+    return render(request,'Librarian/all_users.html')

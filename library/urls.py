@@ -40,4 +40,7 @@ urlpatterns = [
     # All books
     path('AllBooks/', views.AllBooks, name='all_books'),
 
+    # ALl users
+    path('AllUsers/', views.AllUsers, name='all_users'),
+
 ]
