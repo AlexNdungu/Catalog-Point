@@ -31,6 +31,7 @@ function getAllCategories(){
 
     // Show loading section
     category_loading_section.style.display = 'flex';
+    all_category_container.style.display = 'none';
 
     // First we create form data
     let formData = new FormData();
@@ -57,6 +58,7 @@ function getAllCategories(){
 
             }
             else if (response.status == 'present'){
+
                 // show success message
                 message_popup_success.style.display = 'flex';
                 success_message_popup.innerHTML = 'All categories loaded successfully.';
@@ -85,7 +87,6 @@ function getAllCategories(){
                     $('#all_category_container').append(category_item);
 
                 }
-
 
                 // hide the success message
                 setTimeout(() => {
