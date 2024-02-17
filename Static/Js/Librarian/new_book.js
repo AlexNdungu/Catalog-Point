@@ -73,13 +73,16 @@ function getAllCategories(){
                 // loop through the categories
                 for(let i = 0; i < categories.length; i++){
 
+                    // replace space with - in categories[i]
+                    let new_category_id = categories[i].replace(/ /g, '-');
+
                     let category_item = `
                         <!--Category item-->
                         <div class="category_item_container">
                             <div class="category_item">
                                 <span>${categories[i]}</span>
                             </div>
-                            <div class="category_item_info" id='${categories[i]}'>
+                            <div class="category_item_info" id='${new_category_id}'>
                                 <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.002 2.005c5.518 0 9.998 4.48 9.998 9.997 0 5.518-4.48 9.998-9.998 9.998-5.517 0-9.997-4.48-9.997-9.998 0-5.517 4.48-9.997 9.997-9.997zm0 8c-.414 0-.75.336-.75.75v5.5c0 .414.336.75.75.75s.75-.336.75-.75v-5.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
                             </div>
                         </div>
@@ -87,6 +90,14 @@ function getAllCategories(){
 
                     $('#all_category_container').append(category_item);
 
+                }
+
+                // Add event listiner to all category_item_info buttons
+                let category_item_info = document.getElementsByClassName('category_item_info');
+                for(let i = 0; i < category_item_info.length; i++){
+                    category_item_info[i].addEventListener('click', ()=> {
+                        showCategoryInfoPopup(category_item_info[i].id);
+                    });
                 }
 
                 // hide the success message
@@ -115,10 +126,16 @@ function getAllCategories(){
 // Show info popup
 function showCategoryInfoPopup(category_name){
 
+    // replace - with space in category_name
+    let new_category_name = category_name.replace(/-/g, ' ');
+    
+    // remove the popup
+    $('#category_item_info_popup').remove();
+
     // First we create form data
     let formData = new FormData();
     formData.append('csrfmiddlewaretoken', csrf[0].value);
-    formData.append('category_name', category_name);
+    formData.append('category_name', new_category_name);
 
     $.ajax({
         type:'POST',
@@ -130,7 +147,7 @@ function showCategoryInfoPopup(category_name){
 
             // show success message
             message_popup_success.style.display = 'flex';
-            success_message_popup.innerHTML = category_name + ' info loaded successfully.';
+            success_message_popup.innerHTML = new_category_name + ' info loaded successfully.';
 
             // The popup
             let category_info = `
@@ -142,14 +159,31 @@ function showCategoryInfoPopup(category_name){
                     </div>
                     <div class="category_item_info_popup_body">
                         <span id="category_item_info_popup_text">
-                            <b>${category_name}</b> - ${response.category_description}
+                            <b>${new_category_name}</b> - ${response.category_description}
                         </span>
                     </div>
                 </div>
             `;
 
-            // Append the popup
-            $('#category_name').append(category_info);
+            // Append the popup to id of category_name using jquery
+            $('#'+category_name).append(category_info);
+
+            // Get the close button and the popup
+            let category_item_info_popup_close = document.getElementById('category_item_info_popup_close');
+            category_item_info_popup_close.addEventListener('click', ()=> {
+
+                // remove the popup
+                $('#category_item_info_popup').remove();
+
+                // show error message
+                message_popup_failed.style.display = 'flex';
+                failed_message_popup.innerHTML = 'Info popup closed.';
+                // hide the message
+                setTimeout(() => {
+                    message_popup_failed.style.display = 'none';
+                }, 4000);
+
+            });
 
             // hide the success message
             setTimeout(() => {

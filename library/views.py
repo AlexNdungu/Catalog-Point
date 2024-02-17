@@ -210,11 +210,10 @@ def getCategoryInfo(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
 
         # Get the category name
-        category_name = request.GET.get('category_name')
+        category_name = request.POST.get('category_name')
 
         # Get the category info
         category = models.Category.objects.get(category_name = category_name)
-
         # Get the category description
         category_description = category.category_description
 
