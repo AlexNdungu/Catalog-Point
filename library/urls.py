@@ -29,7 +29,7 @@ urlpatterns = [
 
     # Create new book
     path('NewBook/', views.NewBook, name='new_book'),
-    #path('getAllCategories/', views.getAllCategories, name='get_all_categories'),
+    path('getAllCategories/', views.getAllCategories, name='get_all_categories'),
 
     # Create new category
     path('NewCategory/', views.NewCategory, name='new_category'),

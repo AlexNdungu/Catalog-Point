@@ -189,8 +189,7 @@ def getAllCategories(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
 
         # Get all categories
-        #categories = models.Category.objects.all()
-        categories = []
+        categories = models.Category.objects.all()
 
         # Check if there are no categories
         if not categories:

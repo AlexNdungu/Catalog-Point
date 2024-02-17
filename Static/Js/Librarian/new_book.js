@@ -29,6 +29,9 @@ close_select_category_btn.addEventListener('click', ()=> {
 // Functions
 function getAllCategories(){
 
+    // Show loading section
+    category_loading_section.style.display = 'flex';
+
     // First we create form data
     let formData = new FormData();
     formData.append('csrfmiddlewaretoken', csrf[0].value);
@@ -41,13 +44,61 @@ function getAllCategories(){
         contentType: false,
         success: function(response){
 
+            if(response.status == 'empty'){
+
+                // show failed message
+                message_popup_failed.style.display = 'flex';
+                failed_message_popup.innerHTML = 'No category found. Add a category first.';
+
+                // redirect to add category page
+                setTimeout(() => {
+                    window.location.href = '/NewCategory/';
+                }, 3000);
+
+            }
+            else if (response.status == 'present'){
+                // show success message
+                message_popup_success.style.display = 'flex';
+                success_message_popup.innerHTML = 'All categories loaded successfully.';
+
+                // Hide loading section and show all categories
+                category_loading_section.style.display = 'none';
+                all_category_container.style.display = 'flex';
+                
+                let categories = response.categories;
+                $('#all_category_container').empty();
+                // loop through the categories
+                for(let i = 0; i < categories.length; i++){
+
+                    let category_item = `
+                        <!--Category item-->
+                        <div class="category_item_container">
+                            <div class="category_item">
+                                <span>${categories[i]}</span>
+                            </div>
+                            <div class="category_item_info" id='${categories[i]}'>
+                                <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.002 2.005c5.518 0 9.998 4.48 9.998 9.997 0 5.518-4.48 9.998-9.998 9.998-5.517 0-9.997-4.48-9.997-9.998 0-5.517 4.48-9.997 9.997-9.997zm0 8c-.414 0-.75.336-.75.75v5.5c0 .414.336.75.75.75s.75-.336.75-.75v-5.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
+                            </div>
+                        </div>
+                    `;
+
+                    $('#all_category_container').append(category_item);
+
+                }
+
+
+                // hide the success message
+                setTimeout(() => {
+                    message_popup_success.style.display = 'none';
+                }, 4000);
+            }
             
         },
         error: function(error){
 
             // show error message
             message_popup_failed.style.display = 'flex';
-            failed_message_popup.innerHTML = 'Failed to get all categories';
+            failed_message_popup.innerHTML = 'Failed to get all categories. Try again later.';
 
             // hide the error message
             setTimeout(() => {
