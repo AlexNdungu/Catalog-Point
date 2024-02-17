@@ -277,3 +277,7 @@ def CreateNewCategory(request):
             new_category.save()
 
             return JsonResponse({'status':'created'})
+        
+# All Books
+def AllBooks(request):
+    return render(request,'Main/all_books.html')

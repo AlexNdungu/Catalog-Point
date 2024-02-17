@@ -37,4 +37,7 @@ urlpatterns = [
     path('NewCategory/', views.NewCategory, name='new_category'),
     path('createNewCategory/', views.CreateNewCategory, name='createNewCategory'),
 
+    # All books
+    path('AllBooks/', views.AllBooks, name='all_books'),
+
 ]

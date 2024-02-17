@@ -1,0 +1,25 @@
+{% extends 'Inherit/upper-nav.html' %}
+
+{% load static %}
+
+<!--The head tag inherited from upper-nav.html-->
+{% block head %}
+
+    <!--Connect The Styling-->
+    <link rel="stylesheet" href="{% static '/Css/Main/all_books.css' %}">
+
+    <!--The Page Title-->
+    <title>Catalog Point ::- All Books</title>
+
+{% endblock %}
+
+<!--The lower section-->
+{% block lower_section %}
+{% endblock %}
+
+<!--Add Javascript File-->
+{% block javaS %}
+
+    <script src="{% static '/Js/Main/Shared/all_books.js' %}"></script>
+
+{% endblock %}
