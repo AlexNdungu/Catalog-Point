@@ -231,7 +231,7 @@ def UploadBook(request):
         book_description = request.POST.get('book_desc')
         book_copies = request.POST.get('book_copies')
         book_pages = request.POST.get('book_pages')
-        book_cover = request.FILES.get('book_cover')
+        book_cover = request.FILES.get('cover_image')
 
         # Check if the book exists
         if models.Book.objects.filter(book_name = book_title).exists():
