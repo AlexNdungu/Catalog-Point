@@ -17,6 +17,7 @@ let book_cover_select_btn = document.getElementById('book_cover_select_btn');
 let cover_image_input = document.getElementById('cover_image_input');
 let cover_image = '';
 let cover_image_name = document.getElementById('cover_image_name');
+let input_numbers = document.getElementsByClassName('input_number');
 
 // Add event listener
 // Open the select category popup
@@ -98,6 +99,15 @@ cover_image_input.addEventListener("change", function () {
         }
     }
 });
+
+// Add event listener to input_numbers on input to reject negative numbers
+for(let i = 0; i < input_numbers.length; i++){
+    input_numbers[i].addEventListener('input', ()=> {
+        if(input_numbers[i].value < 1){
+            input_numbers[i].value = 1;
+        }
+    });
+}
 
 // Functions
 // Get all categories
