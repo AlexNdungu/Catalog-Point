@@ -27,6 +27,7 @@ close_select_category_btn.addEventListener('click', ()=> {
 
 
 // Functions
+// Get all categories
 function getAllCategories(){
 
     // Show loading section
@@ -107,6 +108,66 @@ function getAllCategories(){
                 select_category_popup.style.display = 'none';
             }, 4000);
 
+        }
+    });
+}
+
+// Show info popup
+function showCategoryInfoPopup(category_name){
+
+    // First we create form data
+    let formData = new FormData();
+    formData.append('csrfmiddlewaretoken', csrf[0].value);
+    formData.append('category_name', category_name);
+
+    $.ajax({
+        type:'POST',
+        url:'/getCategoryInfo/',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response){
+
+            // show success message
+            message_popup_success.style.display = 'flex';
+            success_message_popup.innerHTML = category_name + ' info loaded successfully.';
+
+            // The popup
+            let category_info = `
+                <div id="category_item_info_popup">
+                    <div class="category_item_info_popup_head">
+                        <div id="category_item_info_popup_close">
+                            <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+                        </div>
+                    </div>
+                    <div class="category_item_info_popup_body">
+                        <span id="category_item_info_popup_text">
+                            <b>${category_name}</b> - ${response.category_description}
+                        </span>
+                    </div>
+                </div>
+            `;
+
+            // Append the popup
+            $('#category_name').append(category_info);
+
+            // hide the success message
+            setTimeout(() => {
+                message_popup_success.style.display = 'none';
+            }, 4000);
+            
+        },
+        error: function(error){
+
+            // show error message
+            message_popup_failed.style.display = 'flex';
+            failed_message_popup.innerHTML = 'Failed to get category info. Try again later.';
+
+            // hide the error message
+            setTimeout(() => {
+                message_popup_failed.style.display = 'none';
+            }, 4000);
+            
         }
     });
 }

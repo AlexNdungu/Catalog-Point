@@ -203,6 +203,22 @@ def getAllCategories(request):
                 category_list.append(category.category_name)
     
             return JsonResponse({'status':'present','categories':category_list})
+        
+# Get category info
+def getCategoryInfo(request):
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        # Get the category name
+        category_name = request.GET.get('category_name')
+
+        # Get the category info
+        category = models.Category.objects.get(category_name = category_name)
+
+        # Get the category description
+        category_description = category.category_description
+
+        return JsonResponse({'category_description':category_description})
 
 # Create new category
 def NewCategory(request):

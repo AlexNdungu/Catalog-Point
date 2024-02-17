@@ -327,7 +327,7 @@
     position: absolute;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 }
@@ -404,7 +404,7 @@
 .all_category_container {
     width: 100%;
     height: max-content;
-    display: flex; /* Flex to show category section */
+    display: none; /* Flex to show category section */
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -521,7 +521,7 @@
 .category_loading_section {
     width: 100%;
     height: max-content;
-    display: none; /* Flex to show loading animation */
+    display: flex; /* Flex to show loading animation */
     align-items: center;
     justify-content: center;
     flex-direction: column;
