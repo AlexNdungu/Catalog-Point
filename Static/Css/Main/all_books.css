@@ -39,7 +39,6 @@
 .search_bar_section_child {
     width: 33%;
     height: 100%;
-    background-color: aqua;
 }
 
 
@@ -141,4 +140,41 @@
 .the_search_bar:focus-within {
     border: 1px solid #406CEE;
     fill: #406CEE;
+}
+
+/* Add Book section */
+.search_bar_section_child:nth-child(3) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.add_book_button {
+    width: 150px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #414141;
+    color: #f3f3f3;
+    fill: #f3f3f3;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.add_book_button:hover {
+    background-color: #406CEE;
+}
+
+.add_book_button span {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.add_book_button svg {
+    margin-right: 10px;
+    width: 27px;
 }
