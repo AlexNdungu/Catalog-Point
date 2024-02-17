@@ -183,6 +183,28 @@ def UpdateProfile(request):
 def NewBook(request):
     return render(request,'librarian/new_book.html')
 
+# Get all categories
+def getAllCategories(request):
+    
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        # Get all categories
+        #categories = models.Category.objects.all()
+        categories = []
+
+        # Check if there are no categories
+        if not categories:
+            return JsonResponse({'status':'empty'})
+        
+        else:
+            # Create a list of categories
+            category_list = []
+    
+            for category in categories:
+                category_list.append(category.category_name)
+    
+            return JsonResponse({'status':'present','categories':category_list})
+
 # Create new category
 def NewCategory(request):
     return render(request,'librarian/new_category.html')
