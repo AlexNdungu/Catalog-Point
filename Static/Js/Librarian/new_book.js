@@ -70,6 +70,8 @@ cover_image_input.addEventListener("change", function () {
                     cover_image_input.value = "";
                 }, 3000);
 
+                cover_image = '';
+
                 return;
             }
             else {
@@ -85,6 +87,8 @@ cover_image_input.addEventListener("change", function () {
                         message_popup_failed.style.display = "none";
                         cover_image_input.value = "";
                     }, 3000);
+
+                    cover_image = '';
 
                 }
                 else {
@@ -120,6 +124,11 @@ for(let i = 0; i < input_numbers.length; i++){
 // Add event listener to cancel button
 cancel_btn.addEventListener('click', ()=> {
     discardNewBook();
+});
+
+// Add event listener to add book button
+add_book_btn.addEventListener('click', ()=> {
+    checkInputs();
 });
 
 // Functions
@@ -340,7 +349,6 @@ function selectCategory(selected_category){
 
 // Discard function
 function discardNewBook(){
-
     // Make everything empty
     book_title.value = '';
     book_author.value = '';
@@ -348,15 +356,102 @@ function discardNewBook(){
     book_copies.value = '';
     book_pages.value = '';
     cover_image_input.value = '';
+    cover_image = '';
     cover_image_name.innerText = 'Selected Image';
     show_selected_category.innerText = 'Selected Category';
 
     // show failed message
     message_popup_failed.style.display = 'flex';
-    failed_message_popup.innerHTML = 'New book discarded.';
-
+    failed_message_popup.innerHTML = 'Book inputs discarded.';
     // hide the message
     setTimeout(() => {
         message_popup_failed.style.display = 'none';
     }, 4000);
+}
+
+// Upload book function
+function uploadBook(){
+
+    // First we create form data
+    let formData = new FormData();
+    formData.append('csrfmiddlewaretoken', csrf[0].value);
+    formData.append('book_title', book_title.value);
+    formData.append('book_author', book_author.value);
+    formData.append('book_desc', book_desc.value);
+    formData.append('book_copies', book_copies.value);
+    formData.append('book_pages', book_pages.value);
+    formData.append('cover_image', cover_image);
+    formData.append('selected_category', show_selected_category.innerText);
+
+    $.ajax({
+        type:'POST',
+        url:'/uploadBook/',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response){
+
+            if(response.status == 'created'){
+
+                // show success message
+                message_popup_success.style.display = 'flex';
+                success_message_popup.innerHTML = 'Book added successfully.';
+
+                // hide the success message
+                setTimeout(() => {
+                    message_popup_success.style.display = 'none';
+                    discardNewBook();
+                }, 4000);
+
+            }
+            else if (response.status == 'exists'){
+
+                // show failed message
+                message_popup_failed.style.display = 'flex';
+                failed_message_popup.innerHTML = 'Book already exists.';
+
+                // hide the failed message
+                setTimeout(() => {
+                    message_popup_failed.style.display = 'none';
+                    discardNewBook();
+                }, 4000);
+
+            }
+            
+        },
+        error: function(error){
+
+            // show error message
+            message_popup_failed.style.display = 'flex';
+            failed_message_popup.innerHTML = 'Failed to add book. Try again later.';
+
+            // hide the error message
+            setTimeout(() => {
+                message_popup_failed.style.display = 'none';
+            }, 4000);
+            
+        }
+    });
+
+}
+
+// check inputs before adding book
+function checkInputs(){
+
+    if(book_title.value == '' || book_author.value == '' || book_desc.value == '' || book_copies.value == '' || book_pages.value == '' || cover_image == '' || show_selected_category.innerText == 'Selected Category'){
+
+        message_popup_failed.style.display = "flex";
+        failed_message_popup.innerHTML = "All fields are required!";
+        // hide the message after 3 seconds
+        setTimeout(function () {
+            message_popup_failed.style.display = "none";
+        }, 3000);
+        return;
+
+    }
+    else {
+        // Add book function
+        uploadBook();
+    }
+
 }

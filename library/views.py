@@ -218,6 +218,40 @@ def getCategoryInfo(request):
         category_description = category.category_description
 
         return JsonResponse({'category_description':category_description})
+    
+# Upload book
+def UploadBook(request):
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        # Get the data
+        book_title = request.POST.get('book_title')
+        book_author = request.POST.get('book_author')
+        book_category = request.POST.get('selected_category')
+        book_description = request.POST.get('book_desc')
+        book_copies = request.POST.get('book_copies')
+        book_pages = request.POST.get('book_pages')
+        book_cover = request.FILES.get('book_cover')
+
+        # Check if the book exists
+        if models.Book.objects.filter(book_name = book_title).exists():
+            return JsonResponse({'status':'exists'})
+        else:
+            # Create the book
+            new_book = models.Book()
+            new_book.book_name = book_title
+            new_book.book_author = book_author
+            # Get the category
+            category = models.Category.objects.get(category_name = book_category)
+            new_book.book_category = category
+            #
+            new_book.book_description = book_description
+            new_book.all_copies = book_copies
+            new_book.book_pages = book_pages
+            new_book.book_cover = book_cover
+            new_book.save()
+
+            return JsonResponse({'status':'created'})
 
 # Create new category
 def NewCategory(request):

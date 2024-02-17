@@ -31,6 +31,7 @@ urlpatterns = [
     path('NewBook/', views.NewBook, name='new_book'),
     path('getAllCategories/', views.getAllCategories, name='get_all_categories'),
     path('getCategoryInfo/', views.getCategoryInfo, name='get_category_info'),
+    path('uploadBook/', views.UploadBook, name='upload_book'),
 
     # Create new category
     path('NewCategory/', views.NewCategory, name='new_category'),
