@@ -10,6 +10,8 @@ let message_popup_success = document.getElementById('message_popup_success');
 let success_message_popup = document.getElementById('success_message_popup');
 let message_popup_failed = document.getElementById('message_popup_failed');
 let failed_message_popup = document.getElementById('failed_message_popup');
+//
+let show_selected_category = document.getElementById('show_selected_category');
 
 
 // Add event listener
@@ -107,6 +109,15 @@ function getAllCategories(){
                             return;
                         }
 
+                    });
+                }
+
+                // Add event listiner to all category_item buttons
+                let category_item = document.getElementsByClassName('category_item');
+                for(let i = 0; i < category_item.length; i++){
+                    category_item[i].addEventListener('click', ()=> {
+                        // call the select category function
+                        selectCategory(category_item[i].innerText);
                     });
                 }
 
@@ -215,4 +226,20 @@ function showCategoryInfoPopup(category_name){
             
         }
     });
+}
+
+// Select category function
+function selectCategory(selected_category){
+    
+    show_selected_category.innerText = selected_category;
+    // show success message
+    message_popup_success.style.display = 'flex';
+    success_message_popup.innerHTML = 'Category selected successfully.';
+
+    // hide the success message
+    setTimeout(() => {
+        select_category_popup.style.display = 'none';
+        message_popup_success.style.display = 'none';
+    }, 4000);
+
 }
