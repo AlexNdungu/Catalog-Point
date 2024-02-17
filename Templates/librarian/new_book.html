@@ -180,8 +180,11 @@
                     <div class="input_icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 9l-2.519 4-2.481-1.96-5 6.96h16l-6-9zm8-5v16h-20v-16h20zm2-2h-24v20h24v-20zm-20 6c0-1.104.896-2 2-2s2 .896 2 2c0 1.105-.896 2-2 2s-2-.895-2-2z"/></svg>
                     </div>
-                    <span>Selected Image</span>
+                    <span id="cover_image_name" >Selected Image</span>
                 </div>
+
+                <!--The image input-->
+                <input type="file" id="cover_image_input" accept="image/*" />
 
             </div>
 
@@ -192,8 +195,8 @@
                     <span>Cover Image Upload Instructions</span>
                 </div>
                 <div class="instruct_body">
-                    <span>Cover should have height greater than width.</span>
                     <span>Cover should be less than 2 megabytes(MB).</span>
+                    <span>Cover should have height greater than width.</span>
                 </div>
             </div>
 

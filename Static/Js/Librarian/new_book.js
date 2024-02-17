@@ -12,7 +12,11 @@ let message_popup_failed = document.getElementById('message_popup_failed');
 let failed_message_popup = document.getElementById('failed_message_popup');
 //
 let show_selected_category = document.getElementById('show_selected_category');
-
+//
+let book_cover_select_btn = document.getElementById('book_cover_select_btn');
+let cover_image_input = document.getElementById('cover_image_input');
+let cover_image = '';
+let cover_image_name = document.getElementById('cover_image_name');
 
 // Add event listener
 // Open the select category popup
@@ -27,6 +31,73 @@ close_select_category_btn.addEventListener('click', ()=> {
     select_category_popup.style.display = 'none';
 });
 
+// open cover select
+book_cover_select_btn.addEventListener('click', ()=> {
+    cover_image_input.click();
+});
+
+// get the size of the file, width and height of the image once the file is selected
+cover_image_input.addEventListener("change", function () {
+    let file = this.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        let img = new Image();
+        img.src = reader.result;
+        img.onload = function () {
+            let w = this.width;
+            let h = this.height;
+            let size = file.size;
+
+            // Check if image is square
+            if(h <= w){
+                message_popup_failed.style.display = "flex";
+                failed_message_popup.innerHTML = "Image height must be greater than width!";
+                cover_image_name.innerText = 'Selected Image';
+
+                // hide the message after 3 seconds
+                setTimeout(function () {
+                    message_popup_failed.style.display = "none";
+                    cover_image_input.value = "";
+                }, 3000);
+
+                return;
+            }
+            else {
+
+                // Check if image is less than 2MB
+                if(size > 2097152){
+                    message_popup_failed.style.display = "flex";
+                    failed_message_popup.innerHTML = "Image must be less than 2MB!";
+                    cover_image_name.innerText = 'Selected Image';
+
+                    // hide the message after 3 seconds
+                    setTimeout(function () {
+                        message_popup_failed.style.display = "none";
+                        cover_image_input.value = "";
+                    }, 3000);
+
+                }
+                else {
+                    message_popup_success.style.display = "flex";
+                    success_message_popup.innerHTML = "Image Selected Successfully!";
+
+                    // hide the message after 3 seconds
+                    setTimeout(function () {
+                        message_popup_success.style.display = "none";
+                    }, 3000);
+
+                    cover_image_name.innerText = file.name;
+                    cover_image = file;
+
+                }
+
+                return;
+            }
+
+        }
+    }
+});
 
 // Functions
 // Get all categories
@@ -230,7 +301,7 @@ function showCategoryInfoPopup(category_name){
 
 // Select category function
 function selectCategory(selected_category){
-    
+
     show_selected_category.innerText = selected_category;
     // show success message
     message_popup_success.style.display = 'flex';
