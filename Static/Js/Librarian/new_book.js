@@ -13,11 +13,19 @@ let failed_message_popup = document.getElementById('failed_message_popup');
 //
 let show_selected_category = document.getElementById('show_selected_category');
 //
+let book_title = document.getElementById('book_title');
+let book_author = document.getElementById('book_author');
+let book_desc = document.getElementById('book_desc');
+let book_copies = document.getElementById('book_copies');
+let book_pages = document.getElementById('book_pages');
 let book_cover_select_btn = document.getElementById('book_cover_select_btn');
 let cover_image_input = document.getElementById('cover_image_input');
 let cover_image = '';
 let cover_image_name = document.getElementById('cover_image_name');
 let input_numbers = document.getElementsByClassName('input_number');
+//
+let cancel_btn = document.getElementById('cancel_btn');
+let add_book_btn = document.getElementById('add_book_btn');
 
 // Add event listener
 // Open the select category popup
@@ -108,6 +116,11 @@ for(let i = 0; i < input_numbers.length; i++){
         }
     });
 }
+
+// Add event listener to cancel button
+cancel_btn.addEventListener('click', ()=> {
+    discardNewBook();
+});
 
 // Functions
 // Get all categories
@@ -323,4 +336,27 @@ function selectCategory(selected_category){
         message_popup_success.style.display = 'none';
     }, 4000);
 
+}
+
+// Discard function
+function discardNewBook(){
+
+    // Make everything empty
+    book_title.value = '';
+    book_author.value = '';
+    book_desc.value = '';
+    book_copies.value = '';
+    book_pages.value = '';
+    cover_image_input.value = '';
+    cover_image_name.innerText = 'Selected Image';
+    show_selected_category.innerText = 'Selected Category';
+
+    // show failed message
+    message_popup_failed.style.display = 'flex';
+    failed_message_popup.innerHTML = 'New book discarded.';
+
+    // hide the message
+    setTimeout(() => {
+        message_popup_failed.style.display = 'none';
+    }, 4000);
 }
