@@ -142,3 +142,93 @@
     width: 25px;
     margin-right: 10px;
 }
+
+
+/* Table section */
+
+.table_section {
+    width: 100%;
+    height: max-content;
+    min-height: 300px;
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.table_section table {
+    width: 100%;
+    height: max-content;
+    border-collapse: collapse;
+    color: #414141;
+}
+
+thead {
+    border-bottom: 1px solid #414141;
+    background-color: #D9D9D9;
+}
+
+thead th {
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 15px;
+}
+
+td, th {
+    text-align: left;
+    padding: 8px;
+}
+
+
+tr {
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+tbody tr:hover {
+    background-color: white;
+    color: #406CEE;
+}
+
+tbody {
+    font-size: 15px;
+    background-color: D9D9D9;
+}
+
+.user_lend_detail {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.user_icon,.edit_control {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #F3F3F3;
+    fill: #F3F3F3;
+    background-color: #414141;
+    transition: 0.2s ease-in-out;
+}
+
+.the_table_cont_section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.edit_control:hover {
+    background-color: #406CEE;
+}
+
+.edit_control svg {
+    width: 20px;
+}
