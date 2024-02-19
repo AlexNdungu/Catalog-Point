@@ -38,7 +38,7 @@ the_search_bar.addEventListener('keyup', function(){
 
     // check if there are divs with class of book_from_db
     if(document.getElementsByClassName('book_from_db').length > 0){
-        searchBooks();
+        searchBooks(the_search_bar.value);
     }
     else{
         // show error message
@@ -158,6 +158,9 @@ function selectCategory(){
 // Get all books
 function getAllBooks(category){
 
+    // empty search bar
+    the_search_bar.value = '';
+
     // First we create form data
     let formData = new FormData();
     formData.append('csrfmiddlewaretoken', csrf[0].value);
@@ -272,21 +275,32 @@ function getAllBooks(category){
 }
 
 // search books function
-function searchBooks(){
+function searchBooks(input_value){
 
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
+    // get the needed elements
+    let title_txtValue = '';
+    let author_txtValue = '';
+    let book_from_db = document.getElementsByClassName('book_from_db');
+    let book_title = document.getElementsByClassName('book_title');
+    let book_author = document.getElementsByClassName('book_author');
+
+    filter = input_value.toUpperCase();
+
+    for (i = 0; i < book_from_db.length; i++) {
+
+        title_txtValue = book_title[i].textContent || book_title[i].innerText;
+        author_txtValue = book_author[i].textContent || book_author[i].innerText;
+
+        if (title_txtValue.toUpperCase().indexOf(filter) > -1) {
+            book_from_db[i].style.display = "";
         }
+        else if (author_txtValue.toUpperCase().indexOf(filter) > -1) {
+            book_from_db[i].style.display = "";
+        }
+        else {
+            book_from_db[i].style.display = "none";
+        }
+
     }
 
 }
