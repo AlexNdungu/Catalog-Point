@@ -42,6 +42,7 @@ urlpatterns = [
 
     # All books
     path('AllBooks/', views.AllBooks, name='all_books'),
+    path('getAllBooks/', views.getAllBooks, name='get_all_books'),
 
     # one book
     path('OneBook/', views.OneBook, name='one_book'),

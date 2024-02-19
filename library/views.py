@@ -286,6 +286,37 @@ def CreateNewCategory(request):
 def AllBooks(request):
     return render(request,'Main/all_books.html')
 
+# Get all books
+def getAllBooks(request):
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        # Get category name
+        category_name = request.POST.get('category')
+
+        if(category_name == 'all'):
+            # Get all books
+            books = models.Book.objects.all()
+
+        else:
+            # Get the category
+            category = models.Category.objects.get(category_name = category_name)
+            # Get all books in the category
+            books = models.Book.objects.filter(book_category = category)
+
+        # Check if there are no books
+        if not books:
+            return JsonResponse({'status':'empty'})
+        
+        else:
+            # Create a list of books
+            book_list = []
+    
+            for book in books:
+                book_list.append(book.book_name)
+    
+            return JsonResponse({'status':'present','books':book_list})
+
 # One Book
 def OneBook(request):
     return render(request,'Main/book.html')
