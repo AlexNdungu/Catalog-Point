@@ -3,15 +3,135 @@ let csrf = document.getElementsByName('csrfmiddlewaretoken');
 let table_body = document.getElementById('table_body');
 let book_no_display = document.getElementById('book_no_display');
 //
+let category_button = document.getElementById('category_button');
+let category_button_name = document.getElementById('category_button_name');
+let category_list = document.getElementById('category_list');
+//
 let message_popup_success = document.getElementById('message_popup_success');
 let success_message_popup = document.getElementById('success_message_popup');
 let message_popup_failed = document.getElementById('message_popup_failed');
 let failed_message_popup = document.getElementById('failed_message_popup');
 
-// Functions
+
 // onload function
 window.onload = function(){
     getAllBooks('all');
+}
+
+// Event Listeners
+// category button
+category_button.addEventListener('click', function(e){
+    if(category_list.style.display == 'flex'){
+        category_list.style.display = 'none';
+    }
+    else{
+        // check e.target.id is category_button
+        if(e.target.id == 'category_button'){
+            getAllCategories();
+        }
+    }
+});
+
+// Functions
+// get all categories function
+function getAllCategories(){
+    
+    // First we create form data
+    let formData = new FormData();
+    formData.append('csrfmiddlewaretoken', csrf[0].value);
+
+    $.ajax({
+        type:'POST',
+        url:'/getAllCategories/',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response){
+
+            if(response.status == 'empty'){
+
+                // show error message
+                message_popup_failed.style.display = 'flex';
+                failed_message_popup.innerHTML = 'No categories found';
+
+                // hide error message after 4 seconds
+                setTimeout(function(){
+                    message_popup_failed.style.display = 'none';
+                }, 4000);
+                
+            }
+            else{
+
+                // show category_list
+                category_list.style.display = 'flex';
+
+                $('#category_list').empty();
+
+                // get all categories
+                let all_categories = response.categories;
+
+                // show success message
+                message_popup_success.style.display = 'flex';
+                success_message_popup.innerHTML = all_categories.length + ' Categories found';
+                setTimeout(function(){
+                    message_popup_success.style.display = 'none';
+                }, 4000);
+
+                for(let i = 0; i < all_categories.length; i++){
+
+                    let category = 
+                    `<div class="category_list_item">
+                        <span class="category_list_item_name" >${all_categories[i]}</span>
+                    </div>
+                    `;
+
+                    $('#category_list').append(category);
+
+                }
+
+                // select category function
+                selectCategory();
+
+            }
+
+        },
+        error: function(error){
+
+            // show error message
+            message_popup_failed.style.display = 'flex';
+            failed_message_popup.innerHTML = 'Failed to get categories. Try again later.';
+
+            // hide error message after 4 seconds
+            setTimeout(function(){
+                message_popup_failed.style.display = 'none';
+            }, 4000);
+            
+        }
+    });
+
+}
+
+// select category function
+function selectCategory(){
+
+    // get all category list items
+    let category_list_items = document.getElementsByClassName('category_list_item');
+    let category_list_item_names = document.getElementsByClassName('category_list_item_name');
+
+    for(let i = 0; i < category_list_items.length; i++){
+            
+        category_list_items[i].addEventListener('click', function(){
+            // get category name
+            category_button_name.innerHTML = category_list_item_names[i].innerHTML;
+            // hide category list
+            category_list.style.display = 'none';
+            // get all books
+            getAllBooks(category_button_name.innerHTML);
+
+        });
+
+    }
+
 }
 
 // Get all books
@@ -31,8 +151,11 @@ function getAllBooks(category){
         success: function(response){
 
             $('#table_body').empty();
+            let book_number = 0;
 
             if(response.status == 'empty'){
+
+                book_no_display.innerHTML = book_number;
 
                 // show error message
                 message_popup_failed.style.display = 'flex';
@@ -46,7 +169,7 @@ function getAllBooks(category){
             }
             else{
 
-                let book_number = response.books.length;
+                book_number = response.books.length;
                 book_no_display.innerHTML = book_number;
 
                 // show success message
@@ -113,6 +236,14 @@ function getAllBooks(category){
         },
         error: function(error){
 
+            // show error message
+            message_popup_failed.style.display = 'flex';
+            failed_message_popup.innerHTML = 'Failed to get books. Try again later.';
+
+            // hide error message after 4 seconds
+            setTimeout(function(){
+                message_popup_failed.style.display = 'none';
+            }, 4000);
             
         }
     });
