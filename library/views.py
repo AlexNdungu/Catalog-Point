@@ -332,8 +332,20 @@ def getAllBooks(request):
             return JsonResponse({'status':'present','books':book_list})
 
 # One Book
-def OneBook(request):
-    return render(request,'Main/book.html')
+def OneBook(request, pk):
+
+    # Get the book
+    book = models.Book.objects.get(book_id = pk)
+
+    # check if the book exists
+    if not book:
+        # redirect to all books
+        return redirect('all_books')
+    else:
+        available_copies = book.all_copies - book.given_copies
+        context = {'book':book,'available_copies':available_copies}
+
+        return render(request,'Main/book.html',context)
 
 # All Users
 def AllUsers(request):
