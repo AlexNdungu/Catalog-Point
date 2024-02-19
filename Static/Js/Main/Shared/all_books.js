@@ -6,6 +6,7 @@ let book_no_display = document.getElementById('book_no_display');
 let category_button = document.getElementById('category_button');
 let category_button_name = document.getElementById('category_button_name');
 let category_list = document.getElementById('category_list');
+let the_search_bar = document.getElementById('the_search_bar');
 //
 let message_popup_success = document.getElementById('message_popup_success');
 let success_message_popup = document.getElementById('success_message_popup');
@@ -29,6 +30,26 @@ category_button.addEventListener('click', function(e){
         if(e.target.id == 'category_button'){
             getAllCategories();
         }
+    }
+});
+
+// search bar
+the_search_bar.addEventListener('keyup', function(){
+
+    // check if there are divs with class of book_from_db
+    if(document.getElementsByClassName('book_from_db').length > 0){
+        searchBooks();
+    }
+    else{
+        // show error message
+        message_popup_failed.style.display = 'flex';
+        failed_message_popup.innerHTML = 'No books to be searched';
+
+        // hide error message after 4 seconds
+        setTimeout(function(){
+            message_popup_failed.style.display = 'none';
+        }, 4000);
+    
     }
 });
 
@@ -190,7 +211,7 @@ function getAllBooks(category){
                     let truncatedTitle = title.length > maxLength ? title.substring(0, maxLength) + "..." : title;
 
                     let table_row = 
-                    `<tr>
+                    `<tr class='book_from_db' >
                         <td>${all_books[i].book_id}</td>
                         <!--Cover image-->
                         <td>
@@ -199,8 +220,8 @@ function getAllBooks(category){
                             </div>
                         </td>
 
-                        <td>${truncatedTitle}</td>
-                        <td>${all_books[i].book_author}</td>
+                        <td class='book_title' >${truncatedTitle}</td>
+                        <td class='book_author' >${all_books[i].book_author}</td>
                         <td>${all_books[i].book_category}</td>
                         <td>${all_books[i].added_on}</td>
                         <td>${all_books[i].all_copies}</td>
@@ -247,5 +268,25 @@ function getAllBooks(category){
             
         }
     });
+
+}
+
+// search books function
+function searchBooks(){
+
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
 
 }
