@@ -111,6 +111,10 @@ def Profile(request):
 
     return render(request, 'Main/profile.html', data_dict)
 
+# One User
+def OneUser(request):
+    return render(request,'librarian/user.html')
+
 # Update Profile
 def UpdateProfile(request):
     

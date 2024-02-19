@@ -24,6 +24,9 @@ urlpatterns = [
     # Profile Url
     path('profile/', views.Profile, name='profile'),
 
+    # one user
+    path('oneUser/', views.OneUser, name='one_user'),
+
     # Update Profile Url
     path('updateProfile/', views.UpdateProfile, name='update_profile'),
 

@@ -48,6 +48,11 @@
     height: max-content;
 }
 
+.the_image_in_section_user {
+    width: 200px;
+    height: 200px;
+}
+
 .image_section img {
     width: 100%;
     height: 100%;
@@ -88,7 +93,7 @@
 }
 
 .singe_det_icon svg {
-    width: 25px;
+    width: 23px;
 }
 
 /* Description section */
