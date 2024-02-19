@@ -313,7 +313,21 @@ def getAllBooks(request):
             book_list = []
     
             for book in books:
-                book_list.append(book.book_name)
+
+                available_copies = book.all_copies - book.given_copies
+
+                one_book = {
+                    'book_id':book.book_id,
+                    'book_name':book.book_name,
+                    'book_author':book.book_author,
+                    'book_category':book.book_category.category_name,
+                    'book_cover':book.book_cover.url,
+                    'all_copies':book.all_copies,
+                    'available_copies':available_copies,
+                    'added_on':book.created.strftime('%d %b, %Y'),
+                }
+
+                book_list.append(one_book)
     
             return JsonResponse({'status':'present','books':book_list})
 
