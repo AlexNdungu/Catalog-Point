@@ -283,6 +283,7 @@ function searchBooks(input_value){
     let book_from_db = document.getElementsByClassName('book_from_db');
     let book_title = document.getElementsByClassName('book_title');
     let book_author = document.getElementsByClassName('book_author');
+    let book_count = 0;
 
     filter = input_value.toUpperCase();
 
@@ -302,5 +303,15 @@ function searchBooks(input_value){
         }
 
     }
+
+    // update count
+    for (i = 0; i < book_from_db.length; i++) {
+        if(book_from_db[i].style.display == ''){
+            book_count++;
+        }
+    }
+
+    // show number of books found
+    book_no_display.innerHTML = book_count;
 
 }
