@@ -347,6 +347,20 @@ def OneBook(request, pk):
 
         return render(request,'Main/book.html',context)
 
+# delete book
+def DeleteBook(request):
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        # Get the book id
+        book_id = request.POST.get('book_id')
+        # Get the book
+        book = models.Book.objects.get(book_id = book_id)
+        # Delete the book
+        book.delete()
+
+        return JsonResponse({'status':'deleted'})
+
 # All Users
 def AllUsers(request):
     return render(request,'Librarian/all_users.html')

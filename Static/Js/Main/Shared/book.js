@@ -9,5 +9,25 @@ let failed_message_popup = document.getElementById('failed_message_popup');
 
 // functions
 function deleteBook(){
-    console.log(book_id);
+    
+    // First we create form data
+    let formData = new FormData();
+    formData.append('csrfmiddlewaretoken', csrf[0].value);
+    formData.append('book_id', book_id);
+
+    $.ajax({
+        type:'POST',
+        url:'/deleteBook/',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response){
+
+
+        },
+        error: function(error){
+
+            
+        }
+    });
 }
