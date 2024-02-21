@@ -356,10 +356,13 @@ def DeleteBook(request):
         book_id = request.POST.get('book_id')
         # Get the book
         book = models.Book.objects.get(book_id = book_id)
-        # Delete the book
-        book.delete()
 
-        return JsonResponse({'status':'deleted'})
+        # Check if the book exists
+        if not book:
+            return JsonResponse({'status':'not_found'})
+        else:
+            book.delete()
+            return JsonResponse({'status':'deleted'})
 
 # All Users
 def AllUsers(request):
