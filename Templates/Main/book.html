@@ -19,6 +19,28 @@
     <!--The main infomation section-->
     <div class="main_info_section">
 
+        <!--The message popup success-->
+        <div class="message_popup" id="message_popup_success">
+
+            <div class="message_pop_icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.334 11.96c-.713-.726-.872-1.829-.393-2.727.342-.64.366-1.401.064-2.062-.301-.66-.893-1.142-1.601-1.302-.991-.225-1.722-1.067-1.803-2.081-.059-.723-.451-1.378-1.062-1.77-.609-.393-1.367-.478-2.05-.229-.956.347-2.026.032-2.642-.776-.44-.576-1.124-.915-1.85-.915-.725 0-1.409.339-1.849.915-.613.809-1.683 1.124-2.639.777-.682-.248-1.44-.163-2.05.229-.61.392-1.003 1.047-1.061 1.77-.082 1.014-.812 1.857-1.803 2.081-.708.16-1.3.642-1.601 1.302s-.277 1.422.065 2.061c.479.897.32 2.001-.392 2.727-.509.517-.747 1.242-.644 1.96s.536 1.347 1.17 1.7c.888.495 1.352 1.51 1.144 2.505-.147.71.044 1.448.519 1.996.476.549 1.18.844 1.902.798 1.016-.063 1.953.54 2.317 1.489.259.678.82 1.195 1.517 1.399.695.204 1.447.072 2.031-.357.819-.603 1.936-.603 2.754 0 .584.43 1.336.562 2.031.357.697-.204 1.258-.722 1.518-1.399.363-.949 1.301-1.553 2.316-1.489.724.046 1.427-.249 1.902-.798.475-.548.667-1.286.519-1.996-.207-.995.256-2.01 1.145-2.505.633-.354 1.065-.982 1.169-1.7s-.135-1.443-.643-1.96zm-12.584 5.43l-4.5-4.364 1.857-1.857 2.643 2.506 5.643-5.784 1.857 1.857-7.5 7.642z"/></svg>
+            </div>
+
+            <span id="success_message_popup" >The message</span>
+
+        </div>
+
+        <!--The message popup failed-->
+        <div class="message_popup" id="message_popup_failed">
+
+            <div class="message_pop_icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.971 0h-9.942l-7.029 7.029v9.941l7.029 7.03h9.941l7.03-7.029v-9.942l-7.029-7.029zm-1.402 16.945l-3.554-3.521-3.518 3.568-1.418-1.418 3.507-3.566-3.586-3.472 1.418-1.417 3.581 3.458 3.539-3.583 1.431 1.431-3.535 3.568 3.566 3.522-1.431 1.43z"/></svg>
+            </div>
+
+            <span id="failed_message_popup" >Due to the complexity of this content, it is recommended to use a bigger device.</span>
+
+        </div>
+
         <div class="info_section">
 
             <!--Image and details-->
@@ -132,73 +154,87 @@
             <!--Details controls-->
             <div class="detail_controls">
 
+                <!--The script-->
+                <script>
+                    let book_id = '{{book.book_id}}';
+                </script>
+
+                <!--The form-->
+                <form>
+                    {% csrf_token %}
+                </form>
+
+                <!--Borrow-->
                 <div class="single_det_control">
                     <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M7 24h-5v-9h5v1.735c.638-.198 1.322-.495 1.765-.689.642-.28 1.259-.417 1.887-.417 1.214 0 2.205.499 4.303 1.205.64.214 1.076.716 1.175 1.306 1.124-.863 2.92-2.257 2.937-2.27.357-.284.773-.434 1.2-.434.952 0 1.751.763 1.751 1.708 0 .49-.219.977-.627 1.356-1.378 1.28-2.445 2.233-3.387 3.074-.56.501-1.066.952-1.548 1.393-.749.687-1.518 1.006-2.421 1.006-.405 0-.832-.065-1.308-.2-2.773-.783-4.484-1.036-5.727-1.105v1.332zm-1-8h-3v7h3v-7zm1 5.664c2.092.118 4.405.696 5.999 1.147.817.231 1.761.354 2.782-.581 1.279-1.172 2.722-2.413 4.929-4.463.824-.765-.178-1.783-1.022-1.113 0 0-2.961 2.299-3.689 2.843-.379.285-.695.519-1.148.519-.107 0-.223-.013-.349-.042-.655-.151-1.883-.425-2.755-.701-.575-.183-.371-.993.268-.858.447.093 1.594.35 2.201.52 1.017.281 1.276-.867.422-1.152-.562-.19-.537-.198-1.889-.665-1.301-.451-2.214-.753-3.585-.156-.639.278-1.432.616-2.164.814v3.888zm3.79-19.913l3.21-1.751 7 3.86v7.677l-7 3.735-7-3.735v-7.719l3.784-2.064.002-.005.004.002zm2.71 6.015l-5.5-2.864v6.035l5.5 2.935v-6.106zm1 .001v6.105l5.5-2.935v-6l-5.5 2.83zm1.77-2.035l-5.47-2.848-2.202 1.202 5.404 2.813 2.268-1.167zm-4.412-3.425l5.501 2.864 2.042-1.051-5.404-2.979-2.139 1.166z"/></svg>
                     <span>Borrow</span>
                 </div>
 
+                <!--Update-->
                 <div class="single_det_control">
                     <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z" fill-rule="nonzero"/></svg>
                     <span>Update</span>
                 </div>
 
-                <div class="single_det_control">
+                <!--Delete-->
+                <div class="single_det_control single_det_control_delete" onclick="deleteBook()">
                     <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.015 5.494h-.253c-.413 0-.747-.335-.747-.747s.334-.747.747-.747h5.253v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-.254v15.435c0 .591-.448 1.071-1 1.071-2.873 0-11.127 0-14 0-.552 0-1-.48-1-1.071zm14.5 0h-13v15.006h13zm-4.25 2.506c-.414 0-.75.336-.75.75v8.5c0 .414.336.75.75.75s.75-.336.75-.75v-8.5c0-.414-.336-.75-.75-.75zm-4.5 0c-.414 0-.75.336-.75.75v8.5c0 .414.336.75.75.75s.75-.336.75-.75v-8.5c0-.414-.336-.75-.75-.75zm3.75-4v-.5h-3v.5z" fill-rule="nonzero"/></svg>
                     <span>Delete</span>
                 </div>
+
             </div>
 
             <!--Table section-->
             <div class="table_section">
 
                 <!--The table-->
-            <table>
-                <!--The head-->
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Borrowed</th>
-                        <th>Retured</th>
-                        <th>Status</th>
-                        <th>Dept</th>
-                        <th></th>
-                      </tr>
-                </thead>
+                <table>
+                    <!--The head-->
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Borrowed</th>
+                            <th>Retured</th>
+                            <th>Status</th>
+                            <th>Dept</th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-                <!--The table body-->
-                <tbody>
-                    <tr>
+                    <!--The table body-->
+                    <tbody>
+                        <tr>
 
-                        <!--User-->
-                        <td>
-                            <div class="user_lend_detail">
-                                <div class="user_icon">
-                                    <span>A</span>
+                            <!--User-->
+                            <td>
+                                <div class="user_lend_detail">
+                                    <div class="user_icon">
+                                        <span>A</span>
+                                    </div>
+                                    <span>Alex Meta</span>
                                 </div>
-                                <span>Alex Meta</span>
-                            </div>
-                        </td>
+                            </td>
 
-                        <td>11 Nov 2023</td>
-                        <td>11 Nov 2023</td>
-                        <td>pending</td>
-                        <td>ksh 200</td>
+                            <td>11 Nov 2023</td>
+                            <td>11 Nov 2023</td>
+                            <td>pending</td>
+                            <td>ksh 200</td>
 
-                        <!--Control section-->
-                        <td>
+                            <!--Control section-->
+                            <td>
 
-                            <div class="the_table_cont_section">
-                                <div class="edit_control">
-                                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z" fill-rule="nonzero"/></svg>
+                                <div class="the_table_cont_section">
+                                    <div class="edit_control">
+                                        <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z" fill-rule="nonzero"/></svg>
+                                    </div>
                                 </div>
-                            </div>
+                        
+                            </td>
+
+                        </tr>
+                    </tbody>
                     
-                        </td>
-
-                    </tr>
-                </tbody>
-                
-            </table>
+                </table>
 
             </div>
 
