@@ -25,7 +25,7 @@ urlpatterns = [
     path('profile/', views.Profile, name='profile'),
 
     # one user
-    path('oneUser/', views.OneUser, name='one_user'),
+    path('profile/<user>/', views.OneUser, name='one_user'),
 
     # Update Profile Url
     path('updateProfile/', views.UpdateProfile, name='update_profile'),
@@ -46,7 +46,7 @@ urlpatterns = [
     path('getAllBooks/', views.getAllBooks, name='get_all_books'),
 
     # one book
-    path('OneBook/<int:pk>', views.OneBook, name='one_book'),
+    path('book/<int:pk>', views.OneBook, name='one_book'),
 
     # ALl users
     path('AllUsers/', views.AllUsers, name='all_users'),

@@ -111,6 +111,17 @@
 .the_image_in_section_user {
     width: 200px;
     height: 200px;
+    background-color: #414141;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.the_image_in_section_user span {
+    font-size: 40px;
+    font-weight: 500;
+    color: #F3F3F3;
 }
 
 .image_section img {

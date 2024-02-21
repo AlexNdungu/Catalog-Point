@@ -112,8 +112,14 @@ def Profile(request):
     return render(request, 'Main/profile.html', data_dict)
 
 # One User
-def OneUser(request):
-    return render(request,'librarian/user.html')
+def OneUser(request,user):
+
+    # Get the user using username
+    user = User.objects.get(username = user)
+    profile = models.Profile.objects.get(user = user)
+    context = {'profile':profile}
+
+    return render(request,'librarian/user.html',context)
 
 # Update Profile
 def UpdateProfile(request):
