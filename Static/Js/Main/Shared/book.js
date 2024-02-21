@@ -41,7 +41,7 @@ function deleteBook(){
                 // hide success message after 4 seconds
                 setTimeout(function(){
                     message_popup_success.style.display = 'none';
-                    window.location.href = '/books/';
+                    window.location.href = '/AllBooks/';
                 }, 4000);
 
             }
