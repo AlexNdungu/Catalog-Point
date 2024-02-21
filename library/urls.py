@@ -21,14 +21,11 @@ urlpatterns = [
     # Upper Navigation Inherit Url
     path('upperNav/', views.UpperNav, name='upper-nav'),
 
-    # Profile Url
+    # Profile 
     path('profile/', views.Profile, name='profile'),
-
-    # one user
     path('profile/<user>/', views.OneUser, name='one_user'),
-
-    # Update Profile Url
     path('updateProfile/', views.UpdateProfile, name='update_profile'),
+    path('deleteUser/', views.DeleteUser, name='delete_user'),
 
     # Create new book
     path('NewBook/', views.NewBook, name='new_book'),

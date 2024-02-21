@@ -189,6 +189,23 @@ def UpdateProfile(request):
 
             return JsonResponse({'fullname':new_full_name,'secondary_email':new_secondary_email,'company':new_company,'location':new_location,'website':new_website})
 
+
+# Delete User
+def DeleteUser(request):
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        username = request.POST.get('username')
+        user = User.objects.get(username = username)
+        
+        # check if the user exists
+        if not user:
+            return JsonResponse({'status':'not_found'})
+        else:
+            user.delete()
+            return JsonResponse({'status':'deleted'})
+
+
 # Create new book
 def NewBook(request):
     return render(request,'librarian/new_book.html')
