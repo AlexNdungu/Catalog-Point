@@ -74,3 +74,38 @@ class Book(models.Model):
     def book_url(self):
         if self.book_cover and hasattr(self.book_cover, 'url'):
             return self.book_cover.url
+
+
+# Cost
+class Cost(models.Model):
+
+    cost_id = models.AutoField(primary_key=True)
+    cost_name = models.CharField(max_length=50, verbose_name='Cost Name')
+    cost_description = models.TextField(verbose_name='Cost Description')
+    cost_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Cost Amount')
+
+    update = models.DateTimeField(auto_now=True)
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.cost_name
+    
+# Book transaction
+class Transaction(models.Model):
+
+    transaction_id = models.AutoField(primary_key=True)
+    transaction_profile = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Transaction Profile')
+    transaction_book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name='Transaction Book')
+    transaction_cost = models.IntegerField(verbose_name='Transaction Cost', default=0)
+
+    transaction_from_date = models.DateField(verbose_name='Transaction From Date')
+    transaction_to_date = models.DateField(verbose_name='Transaction To Date')
+
+    transaction_approved = models.BooleanField(verbose_name='Transaction Approved', default=False)
+    transaction_returned = models.BooleanField(verbose_name='Transaction Returned', default=False)
+
+    update = models.DateTimeField(auto_now=True)
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.transaction_profile.full_name + ' - ' + self.transaction_book.book_name

@@ -56,7 +56,7 @@ def signIn(request):
 # Sign out user
 def signOut(request):  
     logout(request)
-    return redirect('landing')
+    return redirect('signin')
 
 # Sign in user
 def signInUser(request):
