@@ -334,7 +334,8 @@ tbody {
 
 .inner_borrow_pop {
     width: 300px;
-    height: 220px;
+    min-height: 220px;
+    height: max-content;
     border-radius: 10px;
     background-color: white;
 }
@@ -381,6 +382,7 @@ tbody {
 .borrow_dates_section {
     width: 100%;
     height: calc(100% - 50px);
+    padding-top: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -404,4 +406,13 @@ tbody {
 
 .borrow_date span {
     margin-right: 15px;
+}
+
+#no_of_days,#cost_in_ksh {
+    width: 150px;
+    height: 40px;
+    outline: none;
+    border: 1px solid #414141;
+    border-radius: 10px;
+    padding-left: 10px;
 }

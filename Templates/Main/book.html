@@ -42,13 +42,13 @@
         </div>
 
         <!--The borrow popup-->
-        <div class="borrow_popup">
+        <div class="borrow_popup" id="borrow_popup" >
             <div class="inner_borrow_pop">
 
                 <div class="borrow_pop_heading">
                     <span>Select Dates</span>
 
-                    <div class="borrow_pop_close">
+                    <div class="borrow_pop_close" id="borrow_pop_close">
                         <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
                     </div>
                 </div>
@@ -66,11 +66,34 @@
                         <input type="date"id="to_date">
                     </div>
 
-                    <!--disable the past dates-->
+                    <div class="borrow_date">
+                        <span>Days</span>
+                        <input type="number" id="no_of_days" disabled="disabled">
+                    </div>
+
+                    <div class="borrow_date">
+                        <span>Cost</span>
+                        <input type="number" id="cost_in_ksh" disabled="disabled">
+                    </div>
+
                     <script>
+                        // disable past dates
                         let today = new Date().toISOString().split('T')[0];
                         document.getElementById('from_date').setAttribute('min', today);
                         document.getElementById('to_date').setAttribute('min', today);
+
+                        // close the popup
+                        document.getElementById('borrow_pop_close').addEventListener('click', function () {
+                            document.getElementById('borrow_popup').style.display = 'none';
+                        });
+
+                        // on from_date change, set the max of to_date to 100 days from the from_date
+                        document.getElementById('from_date').addEventListener('change', function () {
+                            let from_date = new Date(document.getElementById('from_date').value);
+                            let to_date = new Date(from_date);
+                            to_date.setDate(to_date.getDate() + 100);
+                            document.getElementById('to_date').setAttribute('max', to_date.toISOString().split('T')[0]);
+                        });
                     </script>
 
                 </div>
@@ -230,11 +253,9 @@
             </div>
 
             <!--Table section-->
-            <div class="table_section">
+            <!-- <div class="table_section">
 
-                <!--The table-->
                 <table>
-                    <!--The head-->
                     <thead>
                         <tr>
                             <th>User</th>
@@ -246,11 +267,9 @@
                         </tr>
                     </thead>
 
-                    <!--The table body-->
                     <tbody>
                         <tr>
 
-                            <!--User-->
                             <td>
                                 <div class="user_lend_detail">
                                     <div class="user_icon">
@@ -265,7 +284,6 @@
                             <td>pending</td>
                             <td>ksh 200</td>
 
-                            <!--Control section-->
                             <td>
 
                                 <div class="the_table_cont_section">
@@ -281,7 +299,7 @@
                     
                 </table>
 
-            </div>
+            </div> -->
 
         </div>
 

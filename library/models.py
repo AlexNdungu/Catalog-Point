@@ -100,8 +100,10 @@ class Transaction(models.Model):
 
     transaction_from_date = models.DateField(verbose_name='Transaction From Date')
     transaction_to_date = models.DateField(verbose_name='Transaction To Date')
+    transaction_no_of_days = models.IntegerField(verbose_name='Transaction No Of Days', default=0)
 
     transaction_approved = models.BooleanField(verbose_name='Transaction Approved', default=False)
+    transaction_denied = models.BooleanField(verbose_name='Transaction Denied', default=False)
     transaction_returned = models.BooleanField(verbose_name='Transaction Returned', default=False)
 
     update = models.DateTimeField(auto_now=True)
