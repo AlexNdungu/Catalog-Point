@@ -366,7 +366,11 @@ def OneBook(request, pk):
         return redirect('all_books')
     else:
         available_copies = book.all_copies - book.given_copies
-        context = {'book':book,'available_copies':available_copies}
+
+        # get cost with an name of Borrow
+        cost = models.Cost.objects.get(cost_name = 'Borrow')
+        cost = cost.cost_amount
+        context = {'book':book,'available_copies':available_copies,'cost':cost}
 
         return render(request,'Main/book.html',context)
 
