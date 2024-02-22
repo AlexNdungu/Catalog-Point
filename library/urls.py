@@ -47,4 +47,8 @@ urlpatterns = [
     # ALl users
     path('AllUsers/', views.AllUsers, name='all_users'),
 
+    # Transactions
+    path('LibTransactions/', views.LibTransact, name='lib_transactions'),
+    path('MemTransactions/', views.MembTransact, name='member_transactions'),
+
 ]

@@ -453,3 +453,11 @@ def BorrowBook(request):
 # All Users
 def AllUsers(request):
     return render(request,'Librarian/all_users.html')
+
+# Transactions for both member and librarian
+# Librarian
+def LibTransact(request):
+    return render(request,'Librarian/transact.html')
+# Member
+def MembTransact(request):
+    return render(request,'Member/transact.html')
