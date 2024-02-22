@@ -371,20 +371,29 @@ def OneBook(request, pk):
         cost = models.Cost.objects.get(cost_name = 'Borrow')
         cost = cost.cost_amount
 
-        # get the transaction with transaction_profile = request.user.profile and transaction_book = book
-        transaction = models.Transaction.objects.filter(transaction_profile = request.user.profile, transaction_book = book)
+        # get the latest transaction with transaction_profile = request.user.profile and transaction_book = book
+        transaction = models.Transaction.objects.filter(transaction_profile = request.user.profile, transaction_book = book).order_by('-transaction_id')
         status = 'none'
         if transaction:
-            the_transaction = True
+            
             first_transaction = transaction[0]
 
-            # Change status
-            if first_transaction.transaction_approved == False and first_transaction.transaction_denied == False:
-                status = 'pending'
-            elif first_transaction.transaction_approved == True and first_transaction.transaction_denied == False:
-                status = 'approved'
-            elif first_transaction.transaction_approved == False and first_transaction.transaction_denied == True:
-                status = 'denied'
+            # Check if book was returned
+            if first_transaction.transaction_returned == True:
+
+                the_transaction = False
+
+            else:
+
+                the_transaction = True
+
+                # Change status
+                if first_transaction.transaction_approved == False and first_transaction.transaction_denied == False:
+                    status = 'pending'
+                elif first_transaction.transaction_approved == True and first_transaction.transaction_denied == False:
+                    status = 'approved'
+                elif first_transaction.transaction_approved == False and first_transaction.transaction_denied == True:
+                    status = 'denied'
 
         else:
             the_transaction = False
@@ -409,6 +418,37 @@ def DeleteBook(request):
         else:
             book.delete()
             return JsonResponse({'status':'deleted'})
+
+# Borrow Book
+def BorrowBook(request):
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        book_id = request.POST.get('book_id')
+        from_date = request.POST.get('from_date')
+        to_date = request.POST.get('to_date')
+        no_of_days = request.POST.get('no_of_days')
+        cost_in_ksh = request.POST.get('cost_in_ksh')
+
+        book = models.Book.objects.get(book_id = book_id)
+        profile = models.Profile.objects.get(user = request.user)
+
+        # check if book is available
+        available_copies = book.all_copies - book.given_copies
+        if available_copies == 0:
+            return JsonResponse({'status':'not_available'})
+        else:
+            # create the transaction
+            transaction = models.Transaction()
+            transaction.transaction_profile = profile
+            transaction.transaction_book = book
+            transaction.transaction_cost = cost_in_ksh
+            transaction.transaction_from_date = from_date
+            transaction.transaction_to_date = to_date
+            transaction.transaction_no_of_days = no_of_days
+            transaction.save()
+
+            return JsonResponse({'status':'borrowed'})
 
 # All Users
 def AllUsers(request):

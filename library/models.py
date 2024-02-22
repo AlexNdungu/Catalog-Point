@@ -110,4 +110,4 @@ class Transaction(models.Model):
     created = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.transaction_profile.full_name + ' - ' + self.transaction_book.book_name
+        return self.transaction_profile.full_name + ' - ' + self.transaction_book.book_name + ' - ' + str(self.transaction_id)
