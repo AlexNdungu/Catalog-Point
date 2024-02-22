@@ -55,7 +55,24 @@
 
                 <!--borrow dates-->
                 <div class="borrow_dates_section">
-                    
+
+                    <div class="borrow_date">
+                        <span>From </span>
+                        <input type="date" id="from_date" >
+                    </div>
+
+                    <div class="borrow_date">
+                        <span>To</span>
+                        <input type="date"id="to_date">
+                    </div>
+
+                    <!--disable the past dates-->
+                    <script>
+                        let today = new Date().toISOString().split('T')[0];
+                        document.getElementById('from_date').setAttribute('min', today);
+                        document.getElementById('to_date').setAttribute('min', today);
+                    </script>
+
                 </div>
 
             </div>
