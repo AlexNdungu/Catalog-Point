@@ -370,7 +370,15 @@ def OneBook(request, pk):
         # get cost with an name of Borrow
         cost = models.Cost.objects.get(cost_name = 'Borrow')
         cost = cost.cost_amount
-        context = {'book':book,'available_copies':available_copies,'cost':cost}
+
+        # get the transaction with transaction_profile = request.user.profile and transaction_book = book
+        transaction = models.Transaction.objects.filter(transaction_profile = request.user.profile, transaction_book = book)
+        if transaction:
+            the_transaction = True
+        else:
+            the_transaction = False
+
+        context = {'book':book,'available_copies':available_copies,'cost':cost,'the_transaction':the_transaction}
 
         return render(request,'Main/book.html',context)
 
