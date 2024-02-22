@@ -344,14 +344,42 @@ tbody {
     height: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background-color: #D9D9D9;
 }
 
 .borrow_pop_heading span {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 500;
     color: #414141;
+}
+
+.borrow_pop_close {
+    width: 40px;
+    height: 40px;
+    background-color: #414141;
+    border-radius: 10px;
+    fill: #F3F3F3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.borrow_pop_close:hover {
+    background-color: #C53B3B;
+}
+
+.borrow_pop_close svg {
+    width: 30px;
+}
+
+.borrow_dates_section {
+    width: 100%;
+    height: calc(100% - 50px);
+    background-color: aqua;
 }
