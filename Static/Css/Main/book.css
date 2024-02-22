@@ -217,6 +217,21 @@
     margin: 15px;
 }
 
+.single_det_control_pending {
+    background-color: #406CEE;
+    display: flex;
+}
+
+.single_det_control_approved {
+    background-color: #2CA631;
+    display: flex;
+}
+
+.single_det_control_denied {
+    background-color: #C53B3B;
+    display: flex;
+}
+
 .single_det_control:hover {
     background-color: #406CEE;
 }
@@ -326,7 +341,7 @@ tbody {
     height: inherit;
     position: absolute;
     z-index: 3;
-    display: flex;
+    display: none; /* show borrow popup */
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.2);
