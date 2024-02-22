@@ -373,12 +373,23 @@ def OneBook(request, pk):
 
         # get the transaction with transaction_profile = request.user.profile and transaction_book = book
         transaction = models.Transaction.objects.filter(transaction_profile = request.user.profile, transaction_book = book)
+        status = 'none'
         if transaction:
             the_transaction = True
+            first_transaction = transaction[0]
+
+            # Change status
+            if first_transaction.transaction_approved == False and first_transaction.transaction_denied == False:
+                status = 'pending'
+            elif first_transaction.transaction_approved == True and first_transaction.transaction_denied == False:
+                status = 'approved'
+            elif first_transaction.transaction_approved == False and first_transaction.transaction_denied == True:
+                status = 'denied'
+
         else:
             the_transaction = False
 
-        context = {'book':book,'available_copies':available_copies,'cost':cost,'the_transaction':the_transaction}
+        context = {'book':book,'available_copies':available_copies,'cost':cost,'the_transaction':the_transaction,'status':status}
 
         return render(request,'Main/book.html',context)
 
