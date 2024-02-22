@@ -63,7 +63,7 @@
 
                     <div class="borrow_date">
                         <span>To</span>
-                        <input type="date"id="to_date">
+                        <input type="date"id="to_date" disabled="disabled">
                     </div>
 
                     <div class="borrow_date">
@@ -74,6 +74,10 @@
                     <div class="borrow_date">
                         <span>Cost</span>
                         <input type="number" id="cost_in_ksh" disabled="disabled">
+                    </div>
+
+                    <div class="proceed_with_borrow">
+                        <span>Proceed</span>
                     </div>
 
                     <script>
@@ -87,13 +91,46 @@
                             document.getElementById('borrow_popup').style.display = 'none';
                         });
 
-                        // on from_date change, set the max of to_date to 100 days from the from_date
+                        // disable the to_date if from_date is empty
+                        document.getElementById('from_date').addEventListener('change', function () {
+                            if (document.getElementById('from_date').value === '') {
+                                document.getElementById('to_date').setAttribute('disabled', 'disabled');
+                                // clear the to_date value
+                                document.getElementById('to_date').value = '';
+                                document.getElementById('no_of_days').value = '';
+                                document.getElementById('cost_in_ksh').value = '';
+                            } else {
+                                document.getElementById('to_date').removeAttribute('disabled');
+                            }
+                        });
+
+                        // on from_date change, set the max of to_date to 100 days from the from_date and min to the from_date
                         document.getElementById('from_date').addEventListener('change', function () {
                             let from_date = new Date(document.getElementById('from_date').value);
                             let to_date = new Date(from_date);
                             to_date.setDate(to_date.getDate() + 100);
                             document.getElementById('to_date').setAttribute('max', to_date.toISOString().split('T')[0]);
+                            document.getElementById('to_date').setAttribute('min', from_date.toISOString().split('T')[0]);
                         });
+
+                        // get the number of days between from_date and to_date when to_date changes
+                        document.getElementById('to_date').addEventListener('change', function () {
+                            let from_date = new Date(document.getElementById('from_date').value);
+                            let to_date = new Date(document.getElementById('to_date').value);
+                            let days = (to_date - from_date) / (1000 * 60 * 60 * 24);
+                            document.getElementById('no_of_days').value = days;
+                            document.getElementById('cost_in_ksh').value = days * 5;
+                        });
+
+                        document.getElementById('from_date').addEventListener('change', function () {
+                            let from_date = new Date(document.getElementById('from_date').value);
+                            let to_date = new Date(document.getElementById('to_date').value);
+                            let days = (to_date - from_date) / (1000 * 60 * 60 * 24);
+                            document.getElementById('no_of_days').value = days;
+                            document.getElementById('cost_in_ksh').value = days * 5;
+                        });
+
+                        
                     </script>
 
                 </div>
