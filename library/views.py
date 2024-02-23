@@ -509,6 +509,88 @@ def getAllUsers(request):
 # Librarian
 def LibTransact(request):
     return render(request,'Librarian/transact.html')
+
+# get librarian transactions
+def getLibTransactions(request):
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        category = request.POST.get('category')
+
+        # Get all transactions
+        if category == 'all':
+            transactions = models.Transaction.objects.all()
+        elif(category == 'pending'):
+            transactions = models.Transaction.objects.filter(transaction_approved = False, transaction_denied = False, transaction_returned = False)
+        elif(category == 'approved'):
+            transactions = models.Transaction.objects.filter(transaction_approved = True, transaction_returned = False, transaction_denied = False)
+        elif(category == 'denied'):
+            transactions = models.Transaction.objects.filter(transaction_denied = True, transaction_returned = False, transaction_approved = False)
+
+        # Check if there are no transactions
+        if not transactions:
+            return JsonResponse({'status':'empty'})
+        
+        else:
+            # Create a list of transactions
+            transaction_list = []
+    
+            for transaction in transactions:
+
+                # Get the book name
+                book_name = transaction.transaction_book.book_name
+                # get book url
+                book_url = transaction.transaction_book.book_url
+                # Get the user name
+                user_name = transaction.transaction_profile.full_name
+
+                # The profile pic logic
+                profile_profile_pic = transaction.transaction_profile.profile_pic
+                profile_pic_url = ''
+                if profile_profile_pic == '':
+                    profile_pic_url = 'False'
+                else:
+                    profile_pic_url = profile_profile_pic.url
+
+                # Get the cost
+                cost = transaction.transaction_cost
+                # Get the from date
+                from_date = transaction.transaction_from_date
+                # Get the to date
+                to_date = transaction.transaction_to_date
+                # Get the no of days
+                no_of_days = transaction.transaction_no_of_days
+                # Get the status
+                status = ''
+                if transaction.transaction_approved == False and transaction.transaction_denied == False and transaction.transaction_returned == False:
+                    status = 'Pending'
+                elif transaction.transaction_approved == True and transaction.transaction_denied == False and transaction.transaction_returned == False:
+                    status = 'Approved'
+                elif transaction.transaction_approved == False and transaction.transaction_denied == True and transaction.transaction_returned == False:
+                    status = 'Denied'
+                elif transaction.transaction_returned == True and transaction.transaction_approved == True and transaction.transaction_denied == False:
+                    status = 'Returned'
+
+                # Get the added on date
+                added_on = transaction.created.strftime('%d %b, %Y')
+
+                one_transaction = {
+                    'transaction_id':transaction.transaction_id,
+                    'book_name':book_name,
+                    'book_url':book_url,
+                    'user_name':user_name,
+                    'profile_pic_url':profile_pic_url,
+                    'cost':cost,
+                    'from_date':from_date,
+                    'to_date':to_date,
+                    'no_of_days':no_of_days,
+                    'status':status,
+                    'added_on':added_on,
+                }
+
+                transaction_list.append(one_transaction)
+    
+            return JsonResponse({'status':'present','transactions':transaction_list})
 # Member
 def MembTransact(request):
     return render(request,'Member/transact.html')
