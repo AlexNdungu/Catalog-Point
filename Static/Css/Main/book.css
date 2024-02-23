@@ -230,7 +230,7 @@
     display: flex;
 }
 
-#single_det_control_pending {
+#single_det_control_pending,#single_det_control_approved,#single_det_control_delete {
     display: none;
 }
 
@@ -238,6 +238,7 @@
     background-color: #2CA631;
     display: flex;
 }
+
 
 .single_det_control_denied {
     background-color: #C53B3B;
