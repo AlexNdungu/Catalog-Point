@@ -18,6 +18,39 @@ window.onload = function(){
     getAllTransactions('all');
 }
 
+// category button
+category_button.addEventListener('click', function(e){
+    if(category_list.style.display == 'flex'){
+        category_list.style.display = 'none';
+    }
+    else{
+        category_list.style.display = 'flex';
+        selectCategory();
+    }
+});
+
+// select category function
+function selectCategory(){
+
+    // get all category list items
+    let category_list_items = document.getElementsByClassName('category_list_item');
+    let category_list_item_names = document.getElementsByClassName('category_list_item_name');
+
+    for(let i = 0; i < category_list_items.length; i++){
+            
+        category_list_items[i].addEventListener('click', function(){
+            // get category name
+            category_button_name.innerHTML = category_list_item_names[i].innerHTML;
+            // hide category list
+            category_list.style.display = 'none';
+            // get all books
+            getAllTransactions(category_button_name.innerHTML);
+
+        });
+
+    }
+
+}
 
 // Get all Transactions
 function getAllTransactions(category){
@@ -141,7 +174,7 @@ function getAllTransactions(category){
 
             // show error message
             message_popup_failed.style.display = 'flex';
-            failed_message_popup.innerHTML = 'Failed to get books. Try again later.';
+            failed_message_popup.innerHTML = 'Failed to get Transactions. Try again later.';
 
             // hide error message after 4 seconds
             setTimeout(function(){
@@ -152,3 +185,4 @@ function getAllTransactions(category){
     });
 
 }
+

@@ -520,12 +520,14 @@ def getLibTransactions(request):
         # Get all transactions
         if category == 'all':
             transactions = models.Transaction.objects.all()
-        elif(category == 'pending'):
+        elif(category == 'Pending'):
             transactions = models.Transaction.objects.filter(transaction_approved = False, transaction_denied = False, transaction_returned = False)
-        elif(category == 'approved'):
+        elif(category == 'Approved'):
             transactions = models.Transaction.objects.filter(transaction_approved = True, transaction_returned = False, transaction_denied = False)
-        elif(category == 'denied'):
+        elif(category == 'Denied'):
             transactions = models.Transaction.objects.filter(transaction_denied = True, transaction_returned = False, transaction_approved = False)
+        elif(category == 'Returned'):
+            transactions = models.Transaction.objects.filter(transaction_returned = True, transaction_approved = True, transaction_denied = False)
 
         # Check if there are no transactions
         if not transactions:
