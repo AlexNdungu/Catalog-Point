@@ -480,6 +480,14 @@ def getAllUsers(request):
                 for transaction in transactions:
                     charges += transaction.transaction_cost
 
+                # The profile pic logic
+                profile_profile_pic = profile.profile_pic
+                profile_pic_url = ''
+                if profile_profile_pic == '':
+                    profile_pic_url = 'False'
+                else:
+                    profile_pic_url = profile_profile_pic.url
+
                 one_profile = {
                     'username':profile.user.username,
                     'profile_id':profile.profile_id,
@@ -487,7 +495,7 @@ def getAllUsers(request):
                     'email':profile.user.email,
                     'books_borrowed':transaction_count,
                     'charges':charges,
-                    #'profile_pic':profile.profile_pic.url,
+                    'profile_pic':profile_pic_url,
                     'added_on':profile.created.strftime('%d %b, %Y'),
                 }
 

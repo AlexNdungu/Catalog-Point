@@ -332,6 +332,17 @@ tr:hover {
     height: 50px;
     background-color: #414141;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user_image span {
+    font-size: 20px;
+    font-weight: 500;
+    color: #f3f3f3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .user_image img {

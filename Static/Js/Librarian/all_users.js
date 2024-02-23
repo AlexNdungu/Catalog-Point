@@ -15,6 +15,26 @@ window.onload = function(){
     getAllUsers();
 }
 
+// search bar
+the_search_bar.addEventListener('keyup', function(){
+
+    // check if there are divs with class of book_from_db
+    if(document.getElementsByClassName('user_from_db').length > 0){
+        searchUsers(the_search_bar.value);
+    }
+    else{
+        // show error message
+        message_popup_failed.style.display = 'flex';
+        failed_message_popup.innerHTML = 'No Users to be searched';
+
+        // hide error message after 4 seconds
+        setTimeout(function(){
+            message_popup_failed.style.display = 'none';
+        }, 4000);
+    
+    }
+});
+
 // Get all books
 function getAllUsers(){
 
@@ -67,17 +87,25 @@ function getAllUsers(){
 
                 for(let i = 0; i < all_users.length; i++){
 
+                    console.log(all_users[i].profile_pic);
+
                     let table_row = 
-                    `<tr>
+                    `<tr class='user_from_db'>
                         <td>${all_users[i].profile_id}</td>
                         <!--Cover image-->
                         <td>
                             <div class="user_image">
-                                <img src="{% static 'Images/hobbit.jpg' %}" alt="cover_book">
+
+                                ${all_users[i].profile_pic != 'False' ?
+                                `<img src="${all_users[i].profile_pic}" alt="profile_picture">` 
+                                :
+                                `<span>${all_users[i].full_name.charAt(0)}</span>`
+                                }
+
                             </div>
                         </td>
 
-                        <td>${all_users[i].full_name}</td>
+                        <td class='user_full_name' >${all_users[i].full_name}</td>
                         <td>${all_users[i].email}</td>
                         <td>${all_users[i].added_on}</td>
                         <td>${all_users[i].books_borrowed}</td>
@@ -124,5 +152,41 @@ function getAllUsers(){
             
         }
     });
+
+}
+
+// search users function
+function searchUsers(input_value){
+
+    // get the needed elements
+    let user_txtValue = '';
+    let user_from_db = document.getElementsByClassName('user_from_db');
+    let user_full_name = document.getElementsByClassName('user_full_name');
+    let user_count = 0;
+
+    let filter = input_value.toUpperCase();
+
+    for (i = 0; i < user_from_db.length; i++) {
+
+        user_txtValue = user_full_name[i].textContent || user_full_name[i].innerText;
+
+        if (user_txtValue.toUpperCase().indexOf(filter) > -1) {
+            user_from_db[i].style.display = "";
+        }
+        else {
+            user_from_db[i].style.display = "none";
+        }
+
+    }
+
+    // update count
+    for (i = 0; i < user_from_db.length; i++) {
+        if(user_from_db[i].style.display == ''){
+            user_count++;
+        }
+    }
+
+    // show number of books found
+    user_no_display.innerHTML = user_count;
 
 }

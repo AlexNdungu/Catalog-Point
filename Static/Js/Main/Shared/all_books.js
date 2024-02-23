@@ -285,7 +285,7 @@ function searchBooks(input_value){
     let book_author = document.getElementsByClassName('book_author');
     let book_count = 0;
 
-    filter = input_value.toUpperCase();
+    let filter = input_value.toUpperCase();
 
     for (i = 0; i < book_from_db.length; i++) {
 
