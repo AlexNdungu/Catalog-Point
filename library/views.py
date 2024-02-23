@@ -189,7 +189,6 @@ def UpdateProfile(request):
 
             return JsonResponse({'fullname':new_full_name,'secondary_email':new_secondary_email,'company':new_company,'location':new_location,'website':new_website})
 
-
 # Delete User
 def DeleteUser(request):
 
@@ -205,10 +204,18 @@ def DeleteUser(request):
             user.delete()
             return JsonResponse({'status':'deleted'})
 
-
 # Create new book
 def NewBook(request):
     return render(request,'librarian/new_book.html')
+
+# update book
+def UpdateBook(request,pk):
+
+    # Get the book
+    book = models.Book.objects.get(book_id = pk)
+    context = {'book':book}
+
+    return render(request,'librarian/update_book.html',context)
 
 # Get all categories
 def getAllCategories(request):
@@ -279,6 +286,7 @@ def UploadBook(request):
             new_book.save()
 
             return JsonResponse({'status':'created'})
+
 
 # Create new category
 def NewCategory(request):
@@ -664,7 +672,6 @@ def getMyTransactions(request):
     
             return JsonResponse({'status':'present','transactions':transaction_list})
 
-
 # one transaction
 def OneTransaction(request, pk):
 
@@ -696,7 +703,6 @@ def PerformActionOnTransaction(request):
 
         # Get the transaction
         transaction = models.Transaction.objects.get(transaction_id = transaction_id)
-        print(transaction)
 
         if not transaction:
             return JsonResponse({'status':'not_found'})

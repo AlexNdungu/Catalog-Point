@@ -123,7 +123,12 @@ for(let i = 0; i < input_numbers.length; i++){
 
 // Add event listener to cancel button
 cancel_btn.addEventListener('click', ()=> {
-    discardNewBook();
+    if (cancel_btn.classList.contains('cancel_update')){
+        discardNewBook('cancel_update');
+    }
+    else if(cancel_btn.classList.contains('cancel_upload')) {
+        discardNewBook('cancel_upload');
+    }
 });
 
 // Add event listener to add book button
@@ -348,17 +353,32 @@ function selectCategory(selected_category){
 }
 
 // Discard function
-function discardNewBook(){
-    // Make everything empty
-    book_title.value = '';
-    book_author.value = '';
-    book_desc.value = '';
-    book_copies.value = '';
-    book_pages.value = '';
-    cover_image_input.value = '';
-    cover_image = '';
-    cover_image_name.innerText = 'Selected Image';
-    show_selected_category.innerText = 'Selected Category';
+function discardNewBook(cancel_in){
+
+    if(cancel_in == 'cancel_upload'){
+        // Make everything empty
+        book_title.value = '';
+        book_author.value = '';
+        book_desc.value = '';
+        book_copies.value = '';
+        book_pages.value = '';
+        cover_image_input.value = '';
+        cover_image = '';
+        cover_image_name.innerText = 'Selected Image';
+        show_selected_category.innerText = 'Selected Category';
+    }
+    else if(cancel_in == 'cancel_update'){
+        // Make everything empty
+        book_title.value = book_name_db;
+        book_author.value = book_author_db;
+        book_desc.value = book_desc_db;
+        book_copies.value = book_copies_db;
+        book_pages.value = book_pages_db;
+        cover_image_input.value = '';
+        cover_image = '';
+        cover_image_name.innerText = 'Selected Image';
+        show_selected_category.innerText = book_category_db;
+    }
 
     // show failed message
     message_popup_failed.style.display = 'flex';
