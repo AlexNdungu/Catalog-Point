@@ -454,6 +454,47 @@ def BorrowBook(request):
 def AllUsers(request):
     return render(request,'Librarian/all_users.html')
 
+# get all users
+def getAllUsers(request):
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        # Get all users
+        profiles = models.Profile.objects.all()
+
+        # Check if there are no users
+        if not profiles:
+            return JsonResponse({'status':'empty'})
+        
+        else:
+            # Create a list of users
+            profile_list = []
+    
+            for profile in profiles:
+
+                # get all the latest transactions for the profile with transaction_approved = True
+                transactions = models.Transaction.objects.filter(transaction_profile = profile, transaction_approved = True, transaction_returned = False).order_by('-transaction_id')
+                transaction_count = transactions.count()
+                # get the charges of these transactions
+                charges = 0
+                for transaction in transactions:
+                    charges += transaction.transaction_cost
+
+                one_profile = {
+                    'username':profile.user.username,
+                    'profile_id':profile.profile_id,
+                    'full_name':profile.full_name,
+                    'email':profile.user.email,
+                    'books_borrowed':transaction_count,
+                    'charges':charges,
+                    #'profile_pic':profile.profile_pic.url,
+                    'added_on':profile.created.strftime('%d %b, %Y'),
+                }
+
+                profile_list.append(one_profile)
+    
+            return JsonResponse({'status':'present','users':profile_list})
+
 # Transactions for both member and librarian
 # Librarian
 def LibTransact(request):
