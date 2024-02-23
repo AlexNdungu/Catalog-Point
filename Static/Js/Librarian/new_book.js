@@ -399,11 +399,12 @@ function discardNewBook(cancel_in){
 }
 
 // Upload book function
-function uploadBook(){
+function uploadBook(process){
 
     // First we create form data
     let formData = new FormData();
     formData.append('csrfmiddlewaretoken', csrf[0].value);
+    formData.append('process', process);
     formData.append('book_title', book_title.value);
     formData.append('book_author', book_author.value);
     formData.append('book_desc', book_desc.value);
@@ -411,6 +412,10 @@ function uploadBook(){
     formData.append('book_pages', book_pages.value);
     formData.append('cover_image', cover_image);
     formData.append('selected_category', show_selected_category.innerText);
+    // get book_id if process is update_book
+    if(process == 'update_book'){
+        formData.append('book_id', book_id_db);
+    }
 
     $.ajax({
         type:'POST',
@@ -429,7 +434,7 @@ function uploadBook(){
                 // hide the success message
                 setTimeout(() => {
                     message_popup_success.style.display = 'none';
-                    discardNewBook();
+                    discardNewBook('cancel_upload');
                 }, 4000);
 
             }
@@ -442,9 +447,41 @@ function uploadBook(){
                 // hide the failed message
                 setTimeout(() => {
                     message_popup_failed.style.display = 'none';
-                    discardNewBook();
+                    discardNewBook('cancel_upload');
                 }, 4000);
 
+            }
+            else if(response.status == 'not_found'){
+
+                // show failed message
+                message_popup_failed.style.display = 'flex';
+                failed_message_popup.innerHTML = 'Book not found.';
+
+                // hide the failed message
+                setTimeout(() => {
+                    message_popup_failed.style.display = 'none';
+                    discardNewBook('cancel_update');
+                }, 4000);
+
+            }
+            else if(response.status == 'updated'){
+                // show success message
+                message_popup_success.style.display = 'flex';
+                success_message_popup.innerHTML = 'Book updated successfully.';
+
+                // update the original db values
+                book_name_db = book_title.value;
+                book_author_db = book_author.value;
+                book_category_db = show_selected_category.innerText;
+                book_desc_db = book_desc.value;
+                book_pages_db = book_pages.value;
+                book_copies_db = book_copies.value;
+
+                // hide the success message
+                setTimeout(() => {
+                    message_popup_success.style.display = 'none';
+                    discardNewBook('cancel_update');
+                }, 4000);
             }
             
         },
@@ -480,7 +517,7 @@ function checkInputs(process){
     }
     else {
         // Add book function
-        uploadBook();
+        uploadBook(process);
     }
 
 }

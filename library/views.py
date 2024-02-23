@@ -259,6 +259,10 @@ def UploadBook(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
 
         # Get the data
+        process = request.POST.get('process')
+        if process == 'update_book':
+            book_id = request.POST.get('book_id')
+
         book_title = request.POST.get('book_title')
         book_author = request.POST.get('book_author')
         book_category = request.POST.get('selected_category')
@@ -267,25 +271,51 @@ def UploadBook(request):
         book_pages = request.POST.get('book_pages')
         book_cover = request.FILES.get('cover_image')
 
-        # Check if the book exists
-        if models.Book.objects.filter(book_name = book_title).exists():
-            return JsonResponse({'status':'exists'})
-        else:
-            # Create the book
-            new_book = models.Book()
-            new_book.book_name = book_title
-            new_book.book_author = book_author
-            # Get the category
-            category = models.Category.objects.get(category_name = book_category)
-            new_book.book_category = category
-            #
-            new_book.book_description = book_description
-            new_book.all_copies = book_copies
-            new_book.book_pages = book_pages
-            new_book.book_cover = book_cover
-            new_book.save()
+        if process == 'update_book':
 
-            return JsonResponse({'status':'created'})
+            # Get the book
+            book = models.Book.objects.get(book_id = book_id)
+
+            # Check if the book exists
+            if not book:
+                return JsonResponse({'status':'not_found'})
+            else:
+                # Update the book
+                book.book_name = book_title
+                book.book_author = book_author
+                # Get the category
+                category = models.Category.objects.get(category_name = book_category)
+                book.book_category = category
+                #
+                book.book_description = book_description
+                book.all_copies = book_copies
+                book.book_pages = book_pages
+                book.book_cover = book_cover
+                book.save()
+
+                return JsonResponse({'status':'updated'})
+            
+        else:
+
+            # Check if the book exists
+            if models.Book.objects.filter(book_name = book_title).exists():
+                return JsonResponse({'status':'exists'})
+            else:
+                # Create the book
+                new_book = models.Book()
+                new_book.book_name = book_title
+                new_book.book_author = book_author
+                # Get the category
+                category = models.Category.objects.get(category_name = book_category)
+                new_book.book_category = category
+                #
+                new_book.book_description = book_description
+                new_book.all_copies = book_copies
+                new_book.book_pages = book_pages
+                new_book.book_cover = book_cover
+                new_book.save()
+
+                return JsonResponse({'status':'created'})
 
 
 # Create new category
