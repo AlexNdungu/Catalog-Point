@@ -20,7 +20,7 @@
     <div class="main_list_section">
 
         <div class="heading_section">
-            <h1>All Users</h1>
+            <h1>All Transactions</h1>
         </div>
 
         <!--Search bar section-->
@@ -32,12 +32,22 @@
                 <div class="book_number">
                     <span>2</span>
                 </div>
+
+                <!--Category button-->
+                <div class="category_button" id="category_button">
+                    <span id="category_button_name" >All Filters</span>
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z"/></svg>
+
+                    <!--The category list-->
+                    <div class="category_list" id="category_list"></div>
+
+                </div>
                 
             </div>
             <div class="search_bar_section_child" >
                 <div class="the_search_bar">
                     <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m15.985 17.031c-1.479 1.238-3.384 1.985-5.461 1.985-4.697 0-8.509-3.812-8.509-8.508s3.812-8.508 8.509-8.508c4.695 0 8.508 3.812 8.508 8.508 0 2.078-.747 3.984-1.985 5.461l4.749 4.75c.146.146.219.338.219.531 0 .587-.537.75-.75.75-.192 0-.384-.073-.531-.22zm-5.461-13.53c-3.868 0-7.007 3.14-7.007 7.007s3.139 7.007 7.007 7.007c3.866 0 7.007-3.14 7.007-7.007s-3.141-7.007-7.007-7.007zm.741 8.499h-4.5c-.414 0-.75.336-.75.75s.336.75.75.75h4.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75zm3-2.5h-7.5c-.414 0-.75.336-.75.75s.336.75.75.75h7.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75zm0-2.5h-7.5c-.414 0-.75.336-.75.75s.336.75.75.75h7.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75z" fill-rule="nonzero"/></svg>
-                    <input type="text" placeholder="Search user with Name">
+                    <input type="text" id="the_search_bar" placeholder="Search transaction with Full Name Or Book Title">
                 </div>
             </div>
             <div class="search_bar_section_child" >
@@ -55,28 +65,39 @@
                     <tr>
                         <th>ID</th>
                         <th>Profile</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Date</th>
-                        <th>Borrowed</th>
+                        <th>Cover</th>
+                        <th>Full Name</th>
+                        <th>Title</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Days</th>
                         <th>Dept</th>
                         <th></th>
                       </tr>
                 </thead>
 
                 <!--The table body-->
-                <tbody>
+                <tbody id="table_body">
                     <tr>
                         <td>1</td>
-                        <!--Cover image-->
+
+                        <!--profile image-->
                         <td>
                             <div class="user_image">
                                 <img src="{% static 'Images/hobbit.jpg' %}" alt="cover_book">
                             </div>
                         </td>
 
+                        <!--cover image-->
+                        <td>
+                            <div class="cover_image">
+                                <img src="{% static 'Images/hobbit.jpg' %}" alt="cover_book">
+                            </div>
+                        </td>
+
                         <td>Alex Meta</td>
-                        <td>alex@gmail.com</td>
+                        <td>The Hobbit</td>
+                        <td>11 Nov 2023</td>
                         <td>11 Nov 2023</td>
                         <td>2</td>
                         <td>ksh 200</td>
@@ -111,5 +132,6 @@
 <!--Add Javascript File-->
 {% block javaS %}
 
+    <script src="{% static '/Js/Librarian/transact.js' %}"></script>
 
 {% endblock %}
