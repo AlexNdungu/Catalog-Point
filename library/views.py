@@ -663,3 +663,25 @@ def getMyTransactions(request):
                 transaction_list.append(one_transaction)
     
             return JsonResponse({'status':'present','transactions':transaction_list})
+
+
+# one transaction
+def OneTransaction(request, pk):
+
+    # Get the transaction
+    transaction = models.Transaction.objects.get(transaction_id = pk)
+
+    # check if the transaction exists
+    if not transaction:
+        # redirect to all transactions
+        return redirect('lib_transactions')
+    else:
+
+        # Get the book
+        book = transaction.transaction_book
+        # Get the user
+        user = transaction.transaction_profile
+
+        context = {'transaction':transaction,'book':book,'user':user}
+
+        return render(request,'Librarian/one_transact.html',context)

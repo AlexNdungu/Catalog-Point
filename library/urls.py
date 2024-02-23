@@ -53,5 +53,6 @@ urlpatterns = [
     path('getLibTransactions/', views.getLibTransactions, name='get_lib_transactions'),
     path('MyTransactions/', views.MembTransact, name='member_transactions'),
     path('getMyTransactions/', views.getMyTransactions, name='get_my_transactions'),
+    path('oneTransaction/<int:pk>', views.OneTransaction, name='one_transaction'),
 
 ]

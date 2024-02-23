@@ -103,6 +103,13 @@
     justify-content: center;
 }
 
+.image_section_transact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .the_image_in_section {
     width: 200px;
     height: max-content;
