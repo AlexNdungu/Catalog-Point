@@ -32,7 +32,6 @@ class Profile(models.Model):
         if self.profile_pic and hasattr(self.profile_pic, 'url'):
             return self.profile_pic.url 
         
-
 # Book category
 class Category(models.Model):
 
@@ -74,7 +73,6 @@ class Book(models.Model):
     def book_url(self):
         if self.book_cover and hasattr(self.book_cover, 'url'):
             return self.book_cover.url
-
 
 # Cost
 class Cost(models.Model):

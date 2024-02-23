@@ -14,6 +14,7 @@ function performAction(action,transaction_id){
     let formData = new FormData();
     formData.append('csrfmiddlewaretoken', csrf[0].value);
     formData.append('action', action);
+    formData.append('transaction_id', transaction_id);
 
     $.ajax({
         type:'POST',
@@ -23,7 +24,61 @@ function performAction(action,transaction_id){
         contentType: false,
         success: function(response){
 
-            
+            if(response.status == 'not_found'){
+                message_popup_failed.style.display = 'flex';
+                failed_message_popup.innerHTML = 'Transaction not found';
+                setTimeout(() => {
+                    message_popup_failed.style.display = 'none';
+                }, 4000);
+            }
+            else if(response.status == 'approved'){
+                message_popup_success.style.display = 'flex';
+                success_message_popup.innerHTML = 'Book transaction approved';
+                // hide the two buttons
+                document.getElementById('single_det_control_approved').style.display = 'none';
+                document.getElementById('single_det_control_denied').style.display = 'none';
+                document.getElementById('single_det_control_return').style.display = 'flex';
+                show_status.innerHTML = 'Approved';
+                setTimeout(() => {
+                    message_popup_success.style.display = 'none';
+                }, 4000);
+            }
+            else if(response.status == 'denied'){
+                message_popup_success.style.display = 'flex';
+                success_message_popup.innerHTML = 'Book transaction denied';
+                // hide the two buttons
+                document.getElementById('single_det_control_approved').style.display = 'none';
+                document.getElementById('single_det_control_denied').style.display = 'none';
+                document.getElementById('single_det_control_delete').style.display = 'flex';
+                show_status.innerHTML = 'Denied';
+                setTimeout(() => {
+                    message_popup_success.style.display = 'none';
+                }, 4000);
+            }
+            else if(response.status == 'returned'){
+                message_popup_success.style.display = 'flex';
+                success_message_popup.innerHTML = 'Book transaction returned';
+                // hide the two buttons
+                document.getElementById('single_det_control_return').style.display = 'none';
+                document.getElementById('single_det_control_delete').style.display = 'flex';
+                show_status.innerHTML = 'Returned';
+                setTimeout(() => {
+                    message_popup_success.style.display = 'none';
+                }, 4000);
+            }
+            else if(response.status == 'deleted'){
+                message_popup_success.style.display = 'flex';
+                success_message_popup.innerHTML = 'Book transaction deleted';
+                // hide the two buttons
+                document.getElementById('single_det_control_delete').style.display = 'none';
+                show_status.innerHTML = 'Deleted';
+                setTimeout(() => {
+                    message_popup_success.style.display = 'none';
+                    // redirect to the transactions page
+                    window.location.href = '/LibTransactions/';
+                }, 4000);
+            }
+
         },
         error: function(error){
 

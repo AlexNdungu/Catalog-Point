@@ -230,7 +230,7 @@
     display: flex;
 }
 
-#single_det_control_pending,#single_det_control_approved,#single_det_control_delete {
+#single_det_control_pending,#single_det_control_return,#single_det_control_delete {
     display: none;
 }
 

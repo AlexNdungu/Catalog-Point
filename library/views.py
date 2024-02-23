@@ -685,3 +685,49 @@ def OneTransaction(request, pk):
         context = {'transaction':transaction,'book':book,'user':user}
 
         return render(request,'Librarian/one_transact.html',context)
+    
+# perform action on transaction
+def PerformActionOnTransaction(request):
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        action = request.POST.get('action')
+        transaction_id = request.POST.get('transaction_id')
+
+        # Get the transaction
+        transaction = models.Transaction.objects.get(transaction_id = transaction_id)
+        print(transaction)
+
+        if not transaction:
+            return JsonResponse({'status':'not_found'})
+        
+        else:
+
+            book = transaction.transaction_book
+
+            if action == 'approve':
+                transaction.transaction_approved = True
+                # update  book
+                book.given_copies += 1
+                book.users_who_have.add(transaction.transaction_profile)
+                book.save()
+                transaction.save()
+                return JsonResponse({'status':'approved'})
+            
+            elif action == 'deny':
+                transaction.transaction_denied = True
+                transaction.save()
+                return JsonResponse({'status':'denied'})
+            
+            elif action == 'return':
+                transaction.transaction_returned = True
+                # update  book
+                book.given_copies -= 1
+                book.users_who_have.remove(transaction.transaction_profile)
+                book.save()
+                transaction.save()
+                return JsonResponse({'status':'returned'})
+            
+            elif action == 'delete':
+                transaction.delete()
+                return JsonResponse({'status':'deleted'})
