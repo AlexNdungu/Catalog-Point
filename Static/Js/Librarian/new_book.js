@@ -123,17 +123,26 @@ for(let i = 0; i < input_numbers.length; i++){
 
 // Add event listener to cancel button
 cancel_btn.addEventListener('click', ()=> {
+    let process = ''
     if (cancel_btn.classList.contains('cancel_update')){
-        discardNewBook('cancel_update');
+        process = 'cancel_update';
     }
     else if(cancel_btn.classList.contains('cancel_upload')) {
-        discardNewBook('cancel_upload');
+        process = 'cancel_upload';
     }
+    discardNewBook(process);
 });
 
 // Add event listener to add book button
 add_book_btn.addEventListener('click', ()=> {
-    checkInputs();
+    let process
+    if(add_book_btn.classList.contains('book_control_btn_update')) {
+        process = 'update_book';
+    }
+    else if(add_book_btn.classList.contains('book_control_btn_upload')) {
+        process = 'upload_book';
+    }
+    checkInputs(process);
 });
 
 // Functions
@@ -456,8 +465,8 @@ function uploadBook(){
 }
 
 // check inputs before adding book
-function checkInputs(){
-
+function checkInputs(process){
+    
     if(book_title.value == '' || book_author.value == '' || book_desc.value == '' || book_copies.value == '' || book_pages.value == '' || cover_image == '' || show_selected_category.innerText == 'Selected Category'){
 
         message_popup_failed.style.display = "flex";
