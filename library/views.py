@@ -557,9 +557,9 @@ def getLibTransactions(request):
                 # Get the cost
                 cost = transaction.transaction_cost
                 # Get the from date
-                from_date = transaction.transaction_from_date
+                from_date = transaction.transaction_from_date.strftime('%d %b, %Y')
                 # Get the to date
-                to_date = transaction.transaction_to_date
+                to_date = transaction.transaction_to_date.strftime('%d %b, %Y')
                 # Get the no of days
                 no_of_days = transaction.transaction_no_of_days
                 # Get the status
@@ -573,9 +573,6 @@ def getLibTransactions(request):
                 elif transaction.transaction_returned == True and transaction.transaction_approved == True and transaction.transaction_denied == False:
                     status = 'Returned'
 
-                # Get the added on date
-                added_on = transaction.created.strftime('%d %b, %Y')
-
                 one_transaction = {
                     'transaction_id':transaction.transaction_id,
                     'book_name':book_name,
@@ -587,12 +584,12 @@ def getLibTransactions(request):
                     'to_date':to_date,
                     'no_of_days':no_of_days,
                     'status':status,
-                    'added_on':added_on,
                 }
 
                 transaction_list.append(one_transaction)
     
             return JsonResponse({'status':'present','transactions':transaction_list})
+
 # Member
 def MembTransact(request):
     return render(request,'Member/transact.html')

@@ -29,6 +29,26 @@ category_button.addEventListener('click', function(e){
     }
 });
 
+// search bar
+the_search_bar.addEventListener('keyup', function(){
+
+    // check if there are divs with class of book_from_db
+    if(document.getElementsByClassName('transaction_from_db').length > 0){
+        searchTransaction(the_search_bar.value);
+    }
+    else{
+        // show error message
+        message_popup_failed.style.display = 'flex';
+        failed_message_popup.innerHTML = 'No Transaction to be searched';
+
+        // hide error message after 4 seconds
+        setTimeout(function(){
+            message_popup_failed.style.display = 'none';
+        }, 4000);
+    
+    }
+});
+
 // select category function
 function selectCategory(){
 
@@ -111,7 +131,7 @@ function getAllTransactions(category){
                     let truncatedTitle = title.length > maxLength ? title.substring(0, maxLength) + "..." : title;
 
                     let table_row = 
-                    `<tr>
+                    `<tr class='transaction_from_db' >
                         <td>${all_transactions[i].transaction_id}</td>
 
                         <!--profile image-->
@@ -134,8 +154,8 @@ function getAllTransactions(category){
                             </div>
                         </td>
 
-                        <td>${all_transactions[i].user_name}</td>
-                        <td>${truncatedTitle}</td>
+                        <td class='book_user' >${all_transactions[i].user_name}</td>
+                        <td class='book_title' >${truncatedTitle}</td>
                         <td>${all_transactions[i].from_date}</td>
                         <td>${all_transactions[i].to_date}</td>
                         <td>${all_transactions[i].no_of_days}</td>
@@ -186,3 +206,44 @@ function getAllTransactions(category){
 
 }
 
+// search books function
+function searchTransaction(input_value){
+
+    // get the needed elements
+    let title_txtValue = '';
+    let user_txtValue = '';
+    let transaction_from_db = document.getElementsByClassName('transaction_from_db');
+    let book_title = document.getElementsByClassName('book_title');
+    let book_user = document.getElementsByClassName('book_user');
+    let transaction_count = 0;
+
+    let filter = input_value.toUpperCase();
+
+    for (i = 0; i < transaction_from_db.length; i++) {
+
+        title_txtValue = book_title[i].textContent || book_title[i].innerText;
+        user_txtValue = book_user[i].textContent || book_user[i].innerText;
+
+        if (title_txtValue.toUpperCase().indexOf(filter) > -1) {
+            transaction_from_db[i].style.display = "";
+        }
+        else if (user_txtValue.toUpperCase().indexOf(filter) > -1) {
+            transaction_from_db[i].style.display = "";
+        }
+        else {
+            transaction_from_db[i].style.display = "none";
+        }
+
+    }
+
+    // update count
+    for (i = 0; i < transaction_from_db.length; i++) {
+        if(transaction_from_db[i].style.display == ''){
+            transaction_count++;
+        }
+    }
+
+    // show number of books found
+    transaction_no_display.innerHTML = transaction_count;
+
+}
