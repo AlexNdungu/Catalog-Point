@@ -24,11 +24,61 @@
 #### - Update Book
 <img src="ScreenShots\update_book.png" alt="drawing" width="90%"/>
 
+- Here, the librarian can update any book.
+
 ### 3. All Books
-- Both the librarian and the member can view the list of all the books in the library
+- Both the librarian and the member can view the list of all the books in the library.
 
 #### - View all books
 <img src="ScreenShots\allbooks.png" alt="drawing" width="90%"/>
 
-- They can both use the searc bar to filter the books using the book title and author.
+- They can both use the search bar to filter the books using the book title and author.
 - The dropdown menu enables them to filter the books using category.
+
+### 4. Specific Books
+
+- Both the librarian and the member can view a specific book but, they have different functionalities they can perform on the book.
+
+#### - A librarian viewing a book
+<img src="ScreenShots\lib_book.png" alt="drawing" width="90%"/>
+
+- They can update and delete the book.
+
+#### - A member viewing a book
+
+<img src="ScreenShots\mem_book.png" alt="drawing" width="90%"/>
+
+- They can only borrow the book.
+
+#### - A member borrowing a book
+
+<img src="ScreenShots\borrow_book.png" alt="drawing" width="60%"/>
+
+- On this popup, the member selects from and to dates.
+- The system calculates the number of days in between the dates.
+- It multiplies the days by the daily charges.
+- The dept should not be more than Ksh 500.
+- In this case, the daily charge is Ksh 5, hence the user can not select more than 100 days apart.
+
+<img src="ScreenShots\borrow_pending.png" alt="drawing" width="90%"/>
+
+- After the member borrows the book, they have to wait for the librarian to approve or reject the transaction.
+
+### 4. Transactions
+- Transactions are the activities ie, borrowing books, that take place within the system
+
+#### - A librians Transaction Screen
+
+<img src="ScreenShots\lib_transact.png" alt="drawing" width="90%"/>
+
+- The librarian can view all the transactions in the system. 
+
+<img src="ScreenShots\lib_one_transact.png" alt="drawing" width="90%"/>
+
+- The librarian can also view a single transaction and act on it.
+
+#### - A Members Transaction Screen
+
+<img src="ScreenShots\mem_transact.png" alt="drawing" width="90%"/>
+
+- A member can view their transactions and search through them accordingly.
