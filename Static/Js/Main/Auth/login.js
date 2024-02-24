@@ -212,7 +212,6 @@ login_button.addEventListener('click', ()=>{
                 
                 else if(response.status == 'found'){
 
-                    // Redirect to the dashboard
                     window.location.href = "/dash";
 
                 }

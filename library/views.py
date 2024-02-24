@@ -112,6 +112,7 @@ def Profile(request):
     return render(request, 'Main/profile.html', data_dict)
 
 # One User
+@login_required
 def OneUser(request,user):
 
     # Get the user using username
@@ -205,10 +206,12 @@ def DeleteUser(request):
             return JsonResponse({'status':'deleted'})
 
 # Create new book
+@login_required       
 def NewBook(request):
     return render(request,'librarian/new_book.html')
 
 # update book
+@login_required  
 def UpdateBook(request,pk):
 
     # Get the book
@@ -317,8 +320,8 @@ def UploadBook(request):
 
                 return JsonResponse({'status':'created'})
 
-
 # Create new category
+@login_required
 def NewCategory(request):
     return render(request,'librarian/new_category.html')
 
@@ -344,6 +347,7 @@ def CreateNewCategory(request):
             return JsonResponse({'status':'created'})
         
 # All Books
+@login_required
 def AllBooks(request):
     return render(request,'Main/all_books.html')
 
@@ -395,6 +399,7 @@ def getAllBooks(request):
             return JsonResponse({'status':'present','books':book_list})
 
 # One Book
+@login_required
 def OneBook(request, pk):
 
     # Get the book
@@ -491,6 +496,7 @@ def BorrowBook(request):
             return JsonResponse({'status':'borrowed'})
 
 # All Users
+@login_required
 def AllUsers(request):
     return render(request,'Librarian/all_users.html')
 
@@ -545,6 +551,7 @@ def getAllUsers(request):
 
 # Transactions for both member and librarian
 # Librarian
+@login_required
 def LibTransact(request):
     return render(request,'Librarian/transact.html')
 
@@ -629,6 +636,7 @@ def getLibTransactions(request):
             return JsonResponse({'status':'present','transactions':transaction_list})
 
 # Member
+@login_required
 def MembTransact(request):
     return render(request,'Member/transact.html')
 
@@ -703,6 +711,7 @@ def getMyTransactions(request):
             return JsonResponse({'status':'present','transactions':transaction_list})
 
 # one transaction
+@login_required
 def OneTransaction(request, pk):
 
     # Get the transaction
