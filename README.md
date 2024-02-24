@@ -61,13 +61,14 @@
 - In this case, the daily charge is Ksh 5, hence the user can not select more than 100 days apart.
 
 <img src="ScreenShots\borrow_pending.png" alt="drawing" width="90%"/>
+<img src="ScreenShots\borrow_approved.png" alt="drawing" width="90%"/>
 
 - After the member borrows the book, they have to wait for the librarian to approve or reject the transaction.
 
-### 4. Transactions
+### 5. Transactions
 - Transactions are the activities ie, borrowing books, that take place within the system
 
-#### - A librians Transaction Screen
+#### - A librirans Transaction Screen
 
 <img src="ScreenShots\lib_transact.png" alt="drawing" width="90%"/>
 
@@ -82,3 +83,35 @@
 <img src="ScreenShots\mem_transact.png" alt="drawing" width="90%"/>
 
 - A member can view their transactions and search through them accordingly.
+
+#### - Librarian collect book transaction screen
+
+<img src="ScreenShots\collect_book.png" alt="drawing" width="90%"/>
+
+- The librarian collects the book after the borrow period has expired.
+- They also collect the dept.
+
+<img src="ScreenShots\after_collect.png" alt="drawing" width="90%"/>
+
+- After the librarian collect the book, they can delete the transaction.
+- The member can now borrow the book again.
+
+### 6. Users And Profiles
+
+- A profile is the account any user is given to be able to access the systems services.
+
+#### - Librarian all users screen
+
+<img src="ScreenShots\allusers.png" alt="drawing" width="90%"/>
+
+- The librarian can view a list of all the users and search for a specific user.
+
+<img src="ScreenShots\user.png" alt="drawing" width="90%"/>
+
+- The librarian can also view a users details and delete the user.
+
+#### - Users Profile
+
+<img src="ScreenShots\profile.png" alt="drawing" width="90%"/>
+
+- All the users can be able to update their profile.

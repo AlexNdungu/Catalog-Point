@@ -707,6 +707,8 @@ def getMyTransactions(request):
     
             for transaction in transactions:
 
+                # get book id
+                book_id = transaction.transaction_book.book_id
                 # Get the book name
                 book_name = transaction.transaction_book.book_name
                 # get book url
@@ -732,6 +734,7 @@ def getMyTransactions(request):
 
                 one_transaction = {
                     'transaction_id':transaction.transaction_id,
+                    'book_id':book_id,
                     'book_name':book_name,
                     'book_url':book_url,
                     'cost':cost,
@@ -792,7 +795,7 @@ def PerformActionOnTransaction(request):
             if action == 'approve':
                 transaction.transaction_approved = True
                 # update  book
-                book.given_copies += 1
+                book.given_copies = book.given_copies + 1
                 book.users_who_have.add(transaction.transaction_profile)
                 book.save()
                 transaction.save()
@@ -806,7 +809,7 @@ def PerformActionOnTransaction(request):
             elif action == 'return':
                 transaction.transaction_returned = True
                 # update  book
-                book.given_copies -= 1
+                book.given_copies = book.given_copies - 1
                 book.users_who_have.remove(transaction.transaction_profile)
                 book.save()
                 transaction.save()
