@@ -12,7 +12,7 @@ def signUp(request):
 
     # Check if user is authenticated
     if request.user.is_authenticated:
-        return redirect('upper-nav')
+        return redirect('all_books')
     else:
         return render(request,'Main/signup.html', {'error':''})
 
@@ -49,7 +49,7 @@ def signIn(request):
 
     # Check if user is authenticated
     if request.user.is_authenticated:
-        return redirect('dash')
+        return redirect('all_books')
     else:
         return render(request,'Main/signin.html',{'error':''})
 
