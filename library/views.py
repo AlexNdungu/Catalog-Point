@@ -115,12 +115,16 @@ def Profile(request):
 @login_required
 def OneUser(request,user):
 
-    # Get the user using username
-    user = User.objects.get(username = user)
-    profile = models.Profile.objects.get(user = user)
-    context = {'profile':profile}
+    # check if user is in the group of librarian
+    if request.user.groups.filter(name='librarian').exists():
+        # Get the user using username
+        user = User.objects.get(username = user)
+        profile = models.Profile.objects.get(user = user)
+        context = {'profile':profile}
 
-    return render(request,'librarian/user.html',context)
+        return render(request,'librarian/user.html',context)
+    else:
+        return redirect('all_books')
 
 # Update Profile
 def UpdateProfile(request):
@@ -208,17 +212,24 @@ def DeleteUser(request):
 # Create new book
 @login_required       
 def NewBook(request):
-    return render(request,'librarian/new_book.html')
+
+    if request.user.groups.filter(name='librarian').exists():
+        return render(request,'librarian/new_book.html')
+    else:
+        return redirect('all_books')
 
 # update book
 @login_required  
 def UpdateBook(request,pk):
 
-    # Get the book
-    book = models.Book.objects.get(book_id = pk)
-    context = {'book':book}
+    if request.user.groups.filter(name='librarian').exists():
+        # Get the book
+        book = models.Book.objects.get(book_id = pk)
+        context = {'book':book}
 
-    return render(request,'librarian/update_book.html',context)
+        return render(request,'librarian/update_book.html',context)
+    else:
+        return redirect('all_books')
 
 # Get all categories
 def getAllCategories(request):
@@ -323,7 +334,11 @@ def UploadBook(request):
 # Create new category
 @login_required
 def NewCategory(request):
-    return render(request,'librarian/new_category.html')
+
+    if request.user.groups.filter(name='librarian').exists():
+        return render(request,'librarian/new_category.html')
+    else:
+        return redirect('all_books')
 
 # Create new category functionality
 def CreateNewCategory(request):
@@ -374,6 +389,14 @@ def getAllBooks(request):
             return JsonResponse({'status':'empty'})
         
         else:
+            
+            group = ''
+            # check if user is in the group of librarian
+            if request.user.groups.filter(name='librarian').exists():
+                group = 'librarian'
+            else:
+                group = 'member'
+
             # Create a list of books
             book_list = []
     
@@ -396,7 +419,7 @@ def getAllBooks(request):
 
                 book_list.append(one_book)
     
-            return JsonResponse({'status':'present','books':book_list})
+            return JsonResponse({'status':'present','books':book_list,'group':group})
 
 # One Book
 @login_required
@@ -498,7 +521,11 @@ def BorrowBook(request):
 # All Users
 @login_required
 def AllUsers(request):
-    return render(request,'Librarian/all_users.html')
+
+    if request.user.groups.filter(name='librarian').exists():
+        return render(request,'librarian/all_users.html')
+    else:
+        return redirect('all_books')
 
 # get all users
 def getAllUsers(request):
@@ -553,7 +580,11 @@ def getAllUsers(request):
 # Librarian
 @login_required
 def LibTransact(request):
-    return render(request,'Librarian/transact.html')
+
+    if request.user.groups.filter(name='librarian').exists():
+        return render(request,'librarian/transact.html')
+    else:
+        return redirect('all_books')
 
 # get librarian transactions
 def getLibTransactions(request):
@@ -638,7 +669,11 @@ def getLibTransactions(request):
 # Member
 @login_required
 def MembTransact(request):
-    return render(request,'Member/transact.html')
+
+    if request.user.groups.filter(name='librarian').exists():
+        return redirect('lib_transactions')
+    else:
+        return render(request,'Member/transact.html')
 
 # get librarian transactions
 def getMyTransactions(request):
@@ -714,23 +749,27 @@ def getMyTransactions(request):
 @login_required
 def OneTransaction(request, pk):
 
-    # Get the transaction
-    transaction = models.Transaction.objects.get(transaction_id = pk)
+    if request.user.groups.filter(name='librarian').exists():
 
-    # check if the transaction exists
-    if not transaction:
-        # redirect to all transactions
-        return redirect('lib_transactions')
+        # Get the transaction
+        transaction = models.Transaction.objects.get(transaction_id = pk)
+
+        # check if the transaction exists
+        if not transaction:
+            # redirect to all transactions
+            return redirect('lib_transactions')
+        else:
+
+            # Get the book
+            book = transaction.transaction_book
+            # Get the user
+            user = transaction.transaction_profile
+
+            context = {'transaction':transaction,'book':book,'user':user}
+
+            return render(request,'Librarian/one_transact.html',context)
     else:
-
-        # Get the book
-        book = transaction.transaction_book
-        # Get the user
-        user = transaction.transaction_profile
-
-        context = {'transaction':transaction,'book':book,'user':user}
-
-        return render(request,'Librarian/one_transact.html',context)
+        return redirect('member_transactions')
     
 # perform action on transaction
 def PerformActionOnTransaction(request):

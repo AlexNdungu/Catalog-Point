@@ -212,7 +212,7 @@ login_button.addEventListener('click', ()=>{
                 
                 else if(response.status == 'found'){
 
-                    window.location.href = "/dash";
+                    window.location.href = "/AllBooks";
 
                 }
             
