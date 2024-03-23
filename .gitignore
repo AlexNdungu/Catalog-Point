@@ -2,4 +2,5 @@ library/migrations/0*
 Media/
 library/__pycache__/*
 library/migrations/__pycache__/*
+library/tests/__pycache__/*
 CatalogPoint/__pycache__/*
