@@ -1,5 +1,6 @@
 library/migrations/0*
 Media/
+staticfiles/
 library/__pycache__/*
 library/migrations/__pycache__/*
 library/tests/__pycache__/*
