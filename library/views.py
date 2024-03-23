@@ -19,7 +19,7 @@ def signUp(request):
 # Create new user
 def createNewUser(request):
 
-    #Email will always be unique for any user
+    # Email will always be unique for any user
 
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
 
