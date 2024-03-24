@@ -1,5 +1,4 @@
 # Testing the views in CatalogPoint
-
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -8,7 +7,6 @@ from library.models import *
 from django.core.files import File
 from datetime import datetime, timedelta
 import random
-
 
 
 class TestViews(TestCase):
