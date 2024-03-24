@@ -34,7 +34,6 @@ class TestViews(TestCase):
     def test_create_user_new_exists_is_false(self):
         client = Client()
         email = 'test@gmail.com'
-        #password = 'testpassword'
         data = {'email':email}
         response = client.post(reverse('create_new_user'),data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.json(), {'status':'created'})
