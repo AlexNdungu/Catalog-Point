@@ -37,6 +37,7 @@ Book.objects.get(book_id = pk)
 ## CatalogPoint Models
 
 ### Profile
+---
 
 **user**
 - This attribute establishes a **one-to-one relationship** between the **Profile model** and the built-in **User model** provided by Django’s authentication system.
@@ -57,3 +58,45 @@ Book.objects.get(book_id = pk)
 **website** - A URL field to store the user’s personal website or blog.
 
 **profile_pic** - An image field for uploading profile pictures.
+
+---
+
+### Category
+---
+
+**category_id** - An automatically generated primary key (integer) for each category.
+
+**category_name** - A character field (string) to store the name of the category.
+
+**category_description** - A text field for a longer description of the category.
+
+**followers**
+
+- A **many-to-many relationship** field that links the Category model with the Profile model.
+
+- Each category can have multiple followers (users who appreciate the category).
+
+---
+
+### Book
+---
+
+**book_id** - An automatically generated primary key (integer) for each book.
+
+**book_name** - A character field (string) to store the name of the book.
+
+**book_author** - A character field for representing the author’s name.
+
+**book_description** - A text field for a longer description of the book.
+
+**book_category** - A **foreign key relationship** with the Category model. Each book is associated with a specific category.
+
+**book_cover** - An image field for uploading the book cover image.
+
+**book_pages** - An integer field for storing the number of pages in the book.
+
+**all_copies** - An integer field representing the total number of copies of the book.
+
+**given_copies** - Another integer field for tracking the number of copies given to users.
+
+**users_who_have** - A many-to-many relationship with the Profile model. Represents the users who have the book.
