@@ -255,15 +255,29 @@ class TestViews(TestCase):
         cost_in_days = int(cost * borrow_days)
         from_date = datetime.now().date()
         to_date = from_date + timedelta(days=borrow_days)
+
         # When books are not available
         data = {'book_id':self.book.book_id,'from_date':from_date,'to_date':to_date,'no_of_days':borrow_days,'cost_in_ksh':cost_in_days}
         response = self.client.post(reverse('borrow_book'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEquals(response.json(), {'status':'not_available'})
+
         # When books are available
         self.book.all_copies = 5
         self.book.save()
         response1 = self.client.post(reverse('borrow_book'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEquals(response1.json(), {'status':'borrowed'})
+
+        # Get all librarian transactions : for line 317
+        transaction_category = 'all'
+        data = {'category':transaction_category}
+        response3 = self.client.post(reverse('get_lib_transactions'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response3.status_code, 200)
+
+        # Get all Member (my) transactions : for line 337
+        transaction_category = 'all'
+        data = {'category':transaction_category}
+        response4 = self.client.post(reverse('get_my_transactions'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response4.status_code, 200)
 
     def test_access_all_users_page_not_librarian(self):
         self.user.groups.add(self.member_group)
@@ -279,9 +293,63 @@ class TestViews(TestCase):
     def test_get_all_users(self):
         data = {}
         response = self.client.post(reverse('get_all_users'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        print(response.json())
         self.assertEquals(response.status_code, 200)
-        
+
+    def test_access_to_librarians_transactions_page_not_librarian(self):
+        self.user.groups.add(self.member_group)
+        response = self.client.get(reverse('lib_transactions'))
+        self.assertEquals(response.status_code, 302)
+
+    def test_access_to_librarians_transactions_page_librarian(self):
+        self.user.groups.add(self.librarian_group)
+        response = self.client.get(reverse('lib_transactions'))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'librarian/transact.html')
+
+    def test_get_all_lib_transactions(self):
+        transaction_category = 'all'
+        # When category is empty
+        data = {'category':transaction_category}
+        response = self.client.post(reverse('get_lib_transactions'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), {'status':'empty'})
+        # When category is not empty : refer to line 270
+
+    def test_access_to_members_transactions_page_member(self):
+        self.user.groups.add(self.member_group)
+        response = self.client.get(reverse('member_transactions'))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'Member/transact.html')
+
+    def test_access_to_members_transactions_page_librarian(self):
+        self.user.groups.add(self.librarian_group)
+        response = self.client.get(reverse('member_transactions'))
+        self.assertEquals(response.status_code, 302)
+
+    def test_get_all_member_transactions(self):
+        transaction_category = 'all'
+        # When category is empty
+        data = {'category':transaction_category}
+        response = self.client.post(reverse('get_my_transactions'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), {'status':'empty'})
+        # When category is not empty : refer to line 276
+    
+    def test_access_one_transaction_page_not_librarian(self):
+        self.user.groups.add(self.member_group)
+        response = self.client.get(reverse('one_transaction', args=[1]))
+        self.assertEquals(response.status_code, 302)
+
+    def test_access_one_transaction_page_librarian(self):
+        self.user.groups.add(self.librarian_group)
+        # create a transaction
+        transaction = Transaction.objects.create(transaction_profile=self.user.profile, transaction_book=self.book,
+                                                transaction_from_date=datetime.now().date(), transaction_to_date=datetime.now().date())
+        response = self.client.get(reverse('one_transaction', args=[transaction.transaction_id]))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'Librarian/one_transact.html')
+
+    
         
     def test_upper_nav_view(self):
         response = self.client.get(reverse('upper-nav'))
