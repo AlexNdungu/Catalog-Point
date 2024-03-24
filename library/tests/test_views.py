@@ -349,7 +349,48 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'Librarian/one_transact.html')
 
-    
+    def test_perform_action_on_transaction_approve_return_delete(self):
+        # create a book
+        book = Book.objects.create(book_name='Test Book1', book_author='Test Author', book_description='Test Description',
+                                        book_category=self.category,book_cover=File(self.testImage),all_copies=5)
+        # create a transaction
+        transaction = Transaction.objects.create(transaction_profile=self.user.profile, transaction_book=book,
+                                                transaction_from_date=datetime.now().date(), transaction_to_date=datetime.now().date())
+        
+        # approve transaction
+        action = 'approve'
+        data = {'transaction_id':transaction.transaction_id,'action':action}
+        response = self.client.post(reverse('perform_action_on_transaction'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), {'status':'approved'})
+
+        # return transaction
+        action = 'return'
+        data1 = {'transaction_id':transaction.transaction_id,'action':action}
+        response1 = self.client.post(reverse('perform_action_on_transaction'), data=data1, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response1.status_code, 200)
+        self.assertEquals(response1.json(), {'status':'returned'})
+
+        # delete transaction
+        action = 'delete'
+        data2 = {'transaction_id':transaction.transaction_id,'action':action}
+        response2 = self.client.post(reverse('perform_action_on_transaction'), data=data2, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response2.status_code, 200)
+        self.assertEquals(response2.json(), {'status':'deleted'})
+
+    def test_perform_action_on_transaction_deny(self):
+        # create a book
+        book = Book.objects.create(book_name='Test Book1', book_author='Test Author', book_description='Test Description',
+                                        book_category=self.category,book_cover=File(self.testImage),all_copies=5)
+        # create a transaction
+        transaction = Transaction.objects.create(transaction_profile=self.user.profile, transaction_book=book,
+                                                transaction_from_date=datetime.now().date(), transaction_to_date=datetime.now().date())
+        # deny transaction
+        action = 'deny'
+        data = {'transaction_id':transaction.transaction_id,'action':action}
+        response = self.client.post(reverse('perform_action_on_transaction'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), {'status':'denied'})
         
     def test_upper_nav_view(self):
         response = self.client.get(reverse('upper-nav'))
