@@ -14,6 +14,9 @@ class TestViews(TestCase):
         self.user = User.objects.create_user(username='testuser',password='testpassword',email='testuser@gmail.com')
         self.testImage = open('Static/Images/user.jpg', 'rb')
         self.client.force_login(self.user)
+        self.category = Category.objects.create(category_name='Test Category', category_description='Test Description')
+        self.book = Book.objects.create(book_name='Test Book', book_author='Test Author', book_description='Test Description',
+                                        book_category=self.category)
 
     def test_sign_up_view_logged_in(self):
         response = self.client.get(reverse('sign_up'))
@@ -138,6 +141,29 @@ class TestViews(TestCase):
         response = self.client.get(reverse('new_book'))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'librarian/new_book.html')
+
+    def test_update_book_user_not_librarian(self):
+        self.user.groups.add(self.member_group)
+        response = self.client.get(reverse('update_book', args=[self.book.book_id]))
+        self.assertEquals(response.status_code, 302)
+
+    def test_update_book_user_librarian(self):
+        self.user.groups.add(self.librarian_group)
+        response = self.client.get(reverse('update_book', args=[self.book.book_id]))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'librarian/update_book.html')
+
+    def test_get_all_categories(self):
+        data = {}
+        response = self.client.post(reverse('get_all_categories'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response.status_code, 200)
+
+    def test_get_all_category_info(self):
+        data = {'category_name':self.category.category_name}
+        response = self.client.post(reverse('get_category_info'), data=data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response.status_code, 200)
+
+    
         
     def test_upper_nav_view(self):
         response = self.client.get(reverse('upper-nav'))
