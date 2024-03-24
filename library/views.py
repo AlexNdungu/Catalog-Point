@@ -404,8 +404,6 @@ def getAllBooks(request):
 
                 available_copies = book.all_copies - book.given_copies
 
-                print(book.given_copies)
-
                 one_book = {
                     'book_id':book.book_id,
                     'book_name':book.book_name,
