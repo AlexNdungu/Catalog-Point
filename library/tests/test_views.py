@@ -87,6 +87,18 @@ class TestViews(TestCase):
         response = self.client.get(reverse('profile'))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'Main/profile.html')
+
+    def test_access_one_user_not_librarian(self):
+        self.user.groups.add(self.member_group)
+        response = self.client.get(reverse('one_user', args=[self.user.username]))
+        self.assertEquals(response.status_code, 302)
+
+    def test_access_one_user_librarian(self):
+        self.user.groups.add(self.librarian_group)
+        response = self.client.get(reverse('one_user', args=[self.user.username]))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'librarian/user.html')
+        
         
     def test_upper_nav_view(self):
         response = self.client.get(reverse('upper-nav'))
