@@ -100,3 +100,50 @@ Book.objects.get(book_id = pk)
 **given_copies** - Another integer field for tracking the number of copies given to users.
 
 **users_who_have** - A many-to-many relationship with the Profile model. Represents the users who have the book.
+
+---
+
+### Cost
+---
+
+**cost_id** - An automatically generated primary key (integer) for each cost.
+
+**cost_name** - A character field (string) to store the name of the cost.
+
+**cost_description** - A text field for a longer description of the cost.
+
+**cost_amount** - A decimal field for storing the cost amount (e.g., monetary value).
+
+---
+
+### Transaction
+---
+
+**transaction_id** - An automatically generated primary key (integer) for each transaction.
+
+**transaction_profile** - A **foreign key relationship** with the Profile model. Represents the user profile associated with the transaction.
+
+**transaction_book** - Another foreign key relationship with the Book model. Represents the book involved in the transaction.
+
+**transaction_cost** - An integer field for storing the cost associated with the transaction.
+
+**transaction_from_date** - A date field representing the start date of the transaction.
+
+**transaction_to_date** - A date field representing the end date of the transaction.
+
+**transaction_no_of_days** - An integer field for storing the duration of the transaction in days.
+
+**transaction_approved** - A boolean field indicating whether the transaction is approved.
+
+**transaction_denied** - A boolean field indicating whether the transaction is denied.
+
+**transaction_returned** - A boolean field indicating whether the book was returned after the transaction.
+
+---
+
+### Common
+---
+
+**update** - A date and time field that automatically updates to the current date and time whenever the model instance is modified.
+
+**created** -  date field that is automatically set to the date when the model instance is created (not updated afterward).
