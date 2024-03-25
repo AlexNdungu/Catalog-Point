@@ -426,7 +426,7 @@ function create_new_user(){
             else if(response.status == 'created'){
 
                 // Redirect to the dashboard
-                window.location.href = "/dash";
+                window.location.href = "/AllBooks";
 
             }
            

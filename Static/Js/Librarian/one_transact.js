@@ -72,11 +72,12 @@ function performAction(action,transaction_id){
                 // hide the two buttons
                 document.getElementById('single_det_control_delete').style.display = 'none';
                 show_status.innerHTML = 'Deleted';
-                setTimeout(() => {
-                    message_popup_success.style.display = 'none';
-                    // redirect to the transactions page
-                    window.location.href = '/LibTransactions/';
-                }, 4000);
+                window.location.href = '/LibTransactions/';
+                // setTimeout(() => {
+                //     message_popup_success.style.display = 'none';
+                //     // redirect to the transactions page
+                //     window.location.href = '/LibTransactions/';
+                // }, 4000);
             }
 
         },
